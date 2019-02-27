@@ -3,88 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    >
+    tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/buttonOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Metin iceren buton"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView Lecture"
-        android:id="@+id/textOne"
-        android:textColor="#861423"
-        android:textSize="20dp"
-        android:textStyle="italic|bold"
-        android:padding="10dp"
-
-        />
-
-    <EditText
-        android:padding="10dp"
-        android:id="@+id/editText"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/edit_text"
-        android:textColor="#fff"
-        android:hint="Faktoriyeli hesaplanacak sayiyi gir"
-     />
+        android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/buttonTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Faktoriyel hesapla"
-        android:layout_gravity="center"
-        />
-
-    <TextView
-        android:id="@+id/sonuc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:id="@+id/picOne"
-        android:background="@drawable/ic_launcher_background"
-
-        />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>
