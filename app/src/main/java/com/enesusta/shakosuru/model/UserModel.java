@@ -1,4 +1,4 @@
-package com.enesusta.shakosuru;
+package com.enesusta.shakosuru.model;
 
 public class UserModel {
 

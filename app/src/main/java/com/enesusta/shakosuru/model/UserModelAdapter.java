@@ -1,5 +1,6 @@
-package com.enesusta.shakosuru;
+package com.enesusta.shakosuru.model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.enesusta.shakosuru.R;
 
 import java.util.List;
 
@@ -42,11 +43,11 @@ public class UserModelAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View layout
-        = LayoutInflater.
+        @SuppressLint("ViewHolder") View layout
+                = LayoutInflater.
                 from(context).
-                inflate(R.layout.temel_tasarim
-                        ,parent,false);
+                inflate(R.layout.activity_ders3
+                        , parent, false);
         TextView name = layout.findViewById(R.id.name);
         TextView surname = layout.findViewById(R.id.surname);
         TextView yas = layout.findViewById(R.id.age);

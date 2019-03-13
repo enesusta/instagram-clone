@@ -1,4 +1,4 @@
-package com.enesusta.shakosuru;
+package com.enesusta.shakosuru.model;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.enesusta.shakosuru.R;
 
 import java.util.List;
 

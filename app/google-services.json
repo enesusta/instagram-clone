@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "806400157124",
+    "firebase_url": "https://shokosuru.firebaseio.com",
+    "project_id": "shokosuru",
+    "storage_bucket": "shokosuru.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806400157124:android:05c30d7c14a05079",
+        "android_client_info": {
+          "package_name": "com.enesusta.shakosuru"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806400157124-ak2gak3lhbh6nob0v2743enfsbtavded.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enesusta.shakosuru",
+            "certificate_hash": "1c6fa1bc08c4a81b4d21d53e8571954d7a9bd025"
+          }
+        },
+        {
+          "client_id": "806400157124-7f57o8m7oofaflmnv9i8pdomgm3umv5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf_rA6spA_qzKi4wYYROrveyMHYbidPww"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806400157124-7f57o8m7oofaflmnv9i8pdomgm3umv5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
