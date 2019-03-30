@@ -22,10 +22,9 @@ public class Home extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListeler);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 
     }
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListeler =
@@ -45,6 +44,10 @@ public class Home extends AppCompatActivity {
                         case R.id.nav_search:
                             selectedFragment = new SearchFragment();
                             break;
+                        case R.id.nav_profile:
+                            selectedFragment = new ProfileFragment();
+                            break;
+
 
                     }
 
@@ -53,8 +56,6 @@ public class Home extends AppCompatActivity {
                     return true;
                 }
             };
-
-
 
 
 }

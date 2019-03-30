@@ -13,6 +13,7 @@ import com.enesusta.shakosuru.model.User;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
+import java.lang.annotation.Inherited;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +80,7 @@ public class FirebaseMessageInsert extends FirebaseInsert implements LocalDate {
         this.context = context;
     }
 
-    public String getMessageKey() {
+    private String getMessageKey() {
         return push.getKey();
     }
 

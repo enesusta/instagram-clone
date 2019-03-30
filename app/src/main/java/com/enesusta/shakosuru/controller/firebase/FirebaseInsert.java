@@ -1,5 +1,6 @@
 package com.enesusta.shakosuru.controller.firebase;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.enesusta.shakosuru.model.User;
@@ -9,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.annotation.Inherited;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +20,16 @@ public class FirebaseInsert extends Firebase implements IConnectable {
     private DatabaseReference reference;
     private User user;
     private boolean connectionStatus;
+    private String refenceString;
 
     public FirebaseInsert() {
+
+    }
+
+    public FirebaseInsert(Context context) {
+        super(context);
+        initComponents();
+        connectionStatus = true;
 
     }
 
@@ -30,6 +40,16 @@ public class FirebaseInsert extends Firebase implements IConnectable {
         reference = database.getReference("Users/enes");
 
     }
+
+    public FirebaseInsert(Context context,String refenceString) {
+        super(context);
+        this.refenceString = refenceString;
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference(refenceString);
+
+    }
+
+
 
     public void execute() {
 
@@ -43,6 +63,11 @@ public class FirebaseInsert extends Firebase implements IConnectable {
         reference.setValue(userMap);
     }
 
+
+    @Override
+    public void initComponents() {
+        database = FirebaseDatabase.getInstance();
+    }
 
     @Override
     public boolean isConnected() {
@@ -86,9 +111,11 @@ public class FirebaseInsert extends Firebase implements IConnectable {
         this.database = database;
     }
 
+    public String getRefenceString() {
+        return refenceString;
+    }
 
-    @Override
-    public void initComponents() {
-
+    public void setRefenceString(String refenceString) {
+        this.refenceString = refenceString;
     }
 }
