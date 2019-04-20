@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
@@ -33,7 +34,7 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
     private TextView textView;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = firebaseFirestore.collection("Users");
-
+    private TextView signText;
 
     @Override
     protected void onStart() {
@@ -77,13 +78,24 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
         login = findViewById(R.id.login);
         myToast = new MyToast(getApplicationContext());
         textView = findViewById(R.id.text_view_data);
+        signText = findViewById(R.id.sign_up_text);
     }
 
     @Override
     public void initListeners() {
+
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goHome();
+            }
+        });
+        signText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goRegister();
             }
         });
     }
@@ -91,10 +103,15 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
 
 
 
+    private void goRegister() {
+
+        Intent intent = new Intent(this, RegisterScreen.class);
+        startActivity(intent);
+
+    }
 
 
-
-    public void transmissionView() {
+    private void goHome() {
 
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);

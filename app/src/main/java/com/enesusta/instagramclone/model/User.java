@@ -15,6 +15,8 @@ public class User implements Serializable {
     private String personEmail;
     private String personId;
     private String personPassword;
+    private String personFullName;
+    private String personUserName;
     private Crpyt crpyt;
 
     private static volatile User intance = null;
@@ -60,5 +62,19 @@ public class User implements Serializable {
         this.personPassword = crpyt.getPass();
     }
 
+    public String getPersonFullName() {
+        return personFullName;
+    }
 
+    public void setPersonFullName(String personFullName) {
+        this.personFullName = personFullName;
+    }
+
+    public String getPersonUserName() {
+        return personUserName;
+    }
+
+    public void setPersonUserName(String personUserName) {
+        this.personUserName = personUserName;
+    }
 }

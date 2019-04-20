@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.LoginException;
 import com.enesusta.instagramclone.controller.MyToast;
 import com.enesusta.instagramclone.model.User;
@@ -12,6 +13,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import lombok.Setter;
 
@@ -61,11 +63,11 @@ public class Insert implements InsertDAO {
 
                         }
 
-                        boolean isCorrect = compareUsers(user, email, pass);
+                       // boolean isCorrect = compareUsers(user, email, pass);
 
-                        loginMessage(isCorrect);
+                      //  loginMessage(isCorrect);
 
-                        //   statusMessage(isUser,user);
+                          statusMessage(isUser,user);
 
 
                     }
@@ -76,9 +78,9 @@ public class Insert implements InsertDAO {
     private void statusMessage(boolean status, User user) {
 
         if (status) {
-            myToast.show("Boyle bir hesap bulunmaktadir.");
+            StyleableToast.makeText(context,"Bu kullanıcı ismi kullanılmaktadır.", R.style.exampleToast);
         } else {
-            myToast.show("Giris yapiyorsunuz.");
+            myToast.show("Kayıt başarılı!");
             collectionReference.add(user);
         }
     }

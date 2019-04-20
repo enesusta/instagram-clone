@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    >
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:text="text"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/im1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="128dp"
+        android:background="@drawable/mainlogo2"
+        android:onClick="click"
+        />
+
+</android.support.v7.widget.Toolbar>
