@@ -2,6 +2,7 @@ package com.enesusta.instagramclone.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.MyToast;
 import com.enesusta.instagramclone.controller.PersonList;
+import com.enesusta.instagramclone.controller.components.MaterialText;
 import com.enesusta.instagramclone.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -32,6 +34,10 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
     private TextView textView;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = firebaseFirestore.collection("Users");
+
+    private TextInputLayout textInputLayoutEmail;
+    private EditText editTextEmail;
+    private MaterialText materialText;
 
 
     @Override
@@ -65,7 +71,7 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         initComponents();
-        signIn();
+        initListeners();
     }
 
     @Override
@@ -76,25 +82,30 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
         login = findViewById(R.id.login);
         myToast = new MyToast(getApplicationContext());
         textView = findViewById(R.id.text_view_data);
-
+        editTextEmail = findViewById(R.id.edit_text_email);
+        textInputLayoutEmail = findViewById(R.id.text_input_layout_email);
+        materialText = new MaterialText(this);
     }
 
-
-    public void signIn() {
-
+    @Override
+    public void initListeners() {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (isSignIn())
-                    myToast.show("Success");
-                else
-                    myToast.show("An Error Occured");
-
+                check();
             }
         });
+    }
+
+    private void check() {
+        if(!materialText.isEditTextEmail(editTextEmail,textInputLayoutEmail,"Enter Full Email")) {
+            return;
+        }
 
     }
+
+
+
 
 
     public void transmissionView() {
