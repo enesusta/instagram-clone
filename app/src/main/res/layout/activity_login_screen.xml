@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
-        android:layout_marginTop="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,18 +16,19 @@
 
         <ImageView
             android:id="@+id/loginLogo"
-            android:background="@drawable/instagram"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="40dp"
+            android:background="@drawable/mainlogo"
+            android:layout_width="170dp"
+            android:layout_height="150dp" />
 
         <EditText
-            android:layout_marginTop="35dp"
+            android:layout_weight="1"
             android:id="@+id/userName"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_width="match_parent"
             android:hint="Username or email"
-            android:layout_height="60dp" />
+            android:layout_height="50dp" />
 
         <EditText
             android:hint="Password"
@@ -47,7 +37,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="50dp" />
 
 
         <Button
@@ -56,24 +46,49 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="15dp"
             android:text="Log in"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/load"
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/buttonAwesome"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
-            android:text="Load"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Awesome Button"
+            app:backgroundTint="@color/whatever_background_color_you_want"/>
 
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:id="@+id/edit_text_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Message"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <!--
         <TextView
+            android:text="Dont' have an acoount"
+            android:layout_marginTop="280dp"
             android:id="@+id/text_view_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             />
+-->
 
 
     </LinearLayout>
