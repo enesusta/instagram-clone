@@ -31,8 +31,8 @@ public class FavoritesFragment extends Fragment {
 
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getFragmentManager());
 
-        viewPageAdapter.AddFragment(new FavoritesFragmentTabOne(), "Following");
-        viewPageAdapter.AddFragment(new FavoritesFragmentTabTwo(), "You");
+        viewPageAdapter.AddFragment(new FavoritesFragmentTabYou(), "Following");
+        viewPageAdapter.AddFragment(new FavoritesFragmentTabFollowing(), "You");
 
         viewPager.setAdapter(viewPageAdapter);
         tabLayout.setupWithViewPager(viewPager);

@@ -27,12 +27,13 @@
             android:textSize="25dp"
             android:text="Instagram" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/toolbar_reload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/reload"
+            android:onClick="onClick"
             />
 
     </LinearLayout>

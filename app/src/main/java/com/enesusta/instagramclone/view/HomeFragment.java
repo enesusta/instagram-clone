@@ -35,38 +35,39 @@ public class HomeFragment extends Fragment implements Initialize {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_home,container,false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         List<ExampleItem> exampleItems = new ArrayList<>();
-        exampleItems.add(new ExampleItem(R.drawable.camera,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.camera,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.camera,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.insta,"Line1","Line2"));
-        exampleItems.add(new ExampleItem(R.drawable.comment,"Line1","Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.camera, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.camera, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.camera, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.insta, "Line1", "Line2"));
+        exampleItems.add(new ExampleItem(R.drawable.comment, "Line1", "Line2"));
 
 
         recyclerView = v.findViewById(R.id.recyclerView);
@@ -80,6 +81,10 @@ public class HomeFragment extends Fragment implements Initialize {
 
         return v;
 
+    }
+
+    public void onClick(View v) {
+        Toast.makeText(v.getContext(), "Deneme", Toast.LENGTH_SHORT);
     }
 
     @Override
