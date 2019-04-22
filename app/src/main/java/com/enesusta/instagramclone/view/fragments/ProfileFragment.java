@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
@@ -25,6 +26,8 @@ import java.util.Map;
 public class ProfileFragment extends Fragment implements Initialize {
 
     private TextView profileUserText;
+    private Button editProfileButton;
+
 
     private User user = (User) Pointer.getObject("user");
 
@@ -37,6 +40,7 @@ public class ProfileFragment extends Fragment implements Initialize {
         profileUserText = view.findViewById(R.id.profile_user_text);
         profileUserText.setText(user.getPersonUserName());
 
+        editProfileButton = view.findViewById(R.id.profile_settings_edit_profile_button);
 
         return view;
     }
@@ -44,11 +48,18 @@ public class ProfileFragment extends Fragment implements Initialize {
     @Override
     public void initComponents() {
 
-
     }
 
     @Override
     public void initListeners() {
+
+    }
+
+    private void editProfile(View v) {
+
+
+
+
 
     }
 

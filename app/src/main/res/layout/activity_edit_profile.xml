@@ -90,6 +90,7 @@
             android:paddingLeft="10dp"
             >
             <TextView
+                android:layout_weight="2"
                 android:id="@+id/edit_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,9 +98,8 @@
                 android:textSize="18sp"
                 />
             <EditText
+                android:layout_weight="8"
                 android:id="@+id/edit_profile_name_edit"
-                android:layout_marginLeft="37dp"
-                android:layout_width="300dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -110,6 +110,7 @@
             android:paddingLeft="10dp"
             >
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/edit_profile_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,9 +118,8 @@
                 android:textSize="18sp"
                 />
             <EditText
+                android:layout_weight="8"
                 android:id="@+id/edit_profile_username_edit"
-                android:layout_marginLeft="17dp"
-                android:layout_width="300dp"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
@@ -128,9 +128,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
+            android:paddingLeft="10dp"
             >
             <TextView
+                android:layout_weight="2"
                 android:id="@+id/edit_profile_website"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,9 +139,8 @@
                 android:textSize="18sp"
                 />
             <EditText
+                android:layout_weight="10"
                 android:id="@+id/edit_profile_website_edit"
-                android:layout_marginLeft="21dp"
-                android:layout_width="300dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -151,6 +151,7 @@
             android:paddingLeft="8dp"
             >
             <TextView
+                android:layout_weight="5"
                 android:id="@+id/edit_profile_bio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,9 +159,8 @@
                 android:textSize="18sp"
                 />
             <EditText
+                android:layout_weight="15"
                 android:id="@+id/edit_profile_bio_edit"
-                android:layout_marginLeft="61dp"
-                android:layout_width="300dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
