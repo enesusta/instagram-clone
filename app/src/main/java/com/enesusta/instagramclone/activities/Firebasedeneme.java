@@ -105,12 +105,11 @@ public class Firebasedeneme extends AppCompatActivity {
 
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
-                Crpyt crpyt = new Crpyt(description);
 
 
-                User user = User.getInstance();
+                User user = new User();
                 user.setPersonEmail(title);
-                user.setPersonPassword(crpyt.getPass());
+               // user.setPersonPassword(crpyt.getPass());
 
                 Insert insert = new Insert(getApplicationContext());
                 insert.execute(user);

@@ -1,8 +1,6 @@
-package com.enesusta.instagramclone.view;
+package com.enesusta.instagramclone.view.activities;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +13,10 @@ import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.MyToast;
 import com.enesusta.instagramclone.controller.PersonList;
+import com.enesusta.instagramclone.controller.Pointer;
+import com.enesusta.instagramclone.controller.components.Tool;
+import com.enesusta.instagramclone.controller.crypt.Crpyt;
+import com.enesusta.instagramclone.controller.firebase.SignIn;
 import com.enesusta.instagramclone.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -25,9 +27,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
 
-public class LoginScreen extends AppCompatActivity implements Initialize {
+public class LoginActivity extends AppCompatActivity implements Initialize, Tool {
 
-    private static final String TAG = "LoginScreen";
+    private static final String TAG = "LoginActivity";
     private EditText userName, pass;
     private Button login;
     private MyToast myToast;
@@ -35,6 +37,7 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = firebaseFirestore.collection("Users");
     private TextView signText;
+    private boolean isNewRecord = false;
 
     @Override
     protected void onStart() {
@@ -85,27 +88,46 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
     public void initListeners() {
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goHome();
+
+                Crpyt crpyt = new Crpyt();
+                String crypedPass = crpyt.toHash(toChar(pass));
+
+                User user = new User();
+                user.setPersonEmail(toChar(userName));
+                user.setPersonPassword(crypedPass);
+
+                User tempUser = null;
+
+                if (isNewRecord) {
+                    // TODO : DO NOTHING
+                } else {
+                    Pointer.putObject("mainUser", user);
+                }
+
+                SignIn signIn = new SignIn(getApplicationContext());
+                signIn.authentication();
+
             }
         });
+
         signText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isNewRecord = true;
                 goRegister();
             }
         });
+
+
     }
-
-
 
 
     private void goRegister() {
 
-        Intent intent = new Intent(this, RegisterScreen.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
 
     }
@@ -113,17 +135,8 @@ public class LoginScreen extends AppCompatActivity implements Initialize {
 
     private void goHome() {
 
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
-
-    }
-
-    public boolean isSignIn() {
-
-
-        return true;
-
-
 
     }
 

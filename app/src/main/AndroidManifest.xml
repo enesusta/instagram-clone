@@ -15,15 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.RegisterScreen"></activity>
-        <activity android:name=".view.Home" />
+        <activity android:name=".view.activities.EditProfileActivity"></activity>
+        <activity android:name=".view.activities.RegisterActivity" />
+        <activity android:name=".view.activities.HomeActivity" />
         <activity android:name=".activities.ActivityDers6" />
         <activity android:name=".activities.ActivityDers5" />
         <activity android:name=".activities.ActivityDers4" />
         <activity android:name=".activities.ActivityDers2" />
         <activity android:name=".activities.ActivityDers1" />
         <activity android:name=".activities.Firebasedeneme" />
-        <activity android:name=".view.LoginScreen">
+        <activity android:name=".view.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

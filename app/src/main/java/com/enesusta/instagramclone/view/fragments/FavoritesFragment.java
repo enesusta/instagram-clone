@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.view;
+package com.enesusta.instagramclone.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.components.ViewPageAdapter;
+import com.enesusta.instagramclone.controller.components.FavoritesViewPagerAdapter;
 
 public class FavoritesFragment extends Fragment {
 
@@ -29,7 +29,7 @@ public class FavoritesFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tablayout_id);
         viewPager = view.findViewById(R.id.viewpager_id);
 
-        ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getFragmentManager());
+        FavoritesViewPagerAdapter viewPageAdapter = new FavoritesViewPagerAdapter(getFragmentManager());
 
         viewPageAdapter.AddFragment(new FavoritesFragmentTabYou(), "Following");
         viewPageAdapter.AddFragment(new FavoritesFragmentTabFollowing(), "You");

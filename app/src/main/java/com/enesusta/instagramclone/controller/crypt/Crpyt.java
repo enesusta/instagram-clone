@@ -17,8 +17,7 @@ public class Crpyt {
     @Getter
     private String pass;
 
-    public Crpyt(String pass) {
-        setPass(toHash(pass));
+    public Crpyt() {
     }
 
     public String toHash(String pass) {

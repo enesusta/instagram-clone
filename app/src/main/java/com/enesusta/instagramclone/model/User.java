@@ -1,5 +1,7 @@
 package com.enesusta.instagramclone.model;
 
+import android.util.Log;
+
 import com.enesusta.instagramclone.controller.crypt.Crpyt;
 import com.google.firebase.firestore.Exclude;
 
@@ -17,23 +19,19 @@ public class User implements Serializable {
     private String personPassword;
     private String personFullName;
     private String personUserName;
+    private String personWebsite;
+    private String personBio;
+    private String personPhone;
+    private String personGender;
+
     private Crpyt crpyt;
 
-    private static volatile User intance = null;
-    private static Object LOCK = new Object();
 
-    private User() {
+    public User() {
 
     }
 
-    public static User getInstance() {
-        if (intance == null) {
-            synchronized (LOCK) {
-                intance = new User();
-            }
-        }
-        return intance;
-    }
+
 
 
     @Exclude
@@ -58,8 +56,11 @@ public class User implements Serializable {
     }
 
     public void setPersonPassword(String personPassword) {
-        crpyt = new Crpyt(personPassword);
+       /* crpyt = new Crpyt(personPassword);
         this.personPassword = crpyt.getPass();
+        Log.d("passfirst", "setPersonPassword: " + crpyt.getPass());
+        */
+       this.personPassword = personPassword;
     }
 
     public String getPersonFullName() {

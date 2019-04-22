@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.model.UserModel;
-import com.enesusta.instagramclone.model.adapterModel;
 
 import java.util.ArrayList;
 import java.util.List;

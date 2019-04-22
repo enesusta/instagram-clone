@@ -1,5 +1,5 @@
 package com.enesusta.instagramclone.controller.firebase;
 
-public interface LoadDAO {
-    void load();
+public interface ShareDAO {
+    void shareIt();
 }

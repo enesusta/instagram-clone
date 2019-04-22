@@ -1,20 +1,21 @@
-package com.enesusta.instagramclone.view;
+package com.enesusta.instagramclone.view.activities;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
+import com.enesusta.instagramclone.view.fragments.FavoritesFragment;
+import com.enesusta.instagramclone.view.fragments.HomeFragment;
+import com.enesusta.instagramclone.view.fragments.ProfileFragment;
+import com.enesusta.instagramclone.view.fragments.SearchFragment;
 
-public class Home extends AppCompatActivity implements Initialize {
+public class HomeActivity extends AppCompatActivity implements Initialize {
 
     private ImageView reloadImageView;
 

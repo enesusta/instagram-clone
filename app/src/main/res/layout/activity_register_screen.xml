@@ -37,6 +37,7 @@
                 android:fontFamily="@font/architects_daughter"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
+                android:imeOptions="actionPrevious"
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
@@ -54,6 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
+
+                android:imeOptions="actionPrevious"
                 android:inputType="textEmailAddress"
                 android:singleLine="true" />
 
@@ -88,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>

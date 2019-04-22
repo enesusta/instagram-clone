@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.view;
+package com.enesusta.instagramclone.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 
 import com.enesusta.instagramclone.R;
 
-public class ProfileFragment extends Fragment {
+public class FavoritesFragmentTabFollowing extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile,container,false);
-    }
 
+        View view = inflater.inflate(R.layout.fragment_favorites_tab_you,container,false);
+
+        return view;
+    }
 }

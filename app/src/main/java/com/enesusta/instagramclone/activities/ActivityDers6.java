@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.crypt.ICrypt;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -103,14 +102,12 @@ public class ActivityDers6 extends AppCompatActivity {
 
     void addChild() {
 
-        ICrypt crypt = new ICrypt();
         DatabaseReference id, isim, soyisim;
         database = FirebaseDatabase.getInstance();
 
         String us = "user1";
 
 
-        ref1 = database.getReference(crypt.getMD5EncryptedString(us));
         id = ref1.child("userId");
         id.setValue("1");
 

@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.view;
+package com.enesusta.instagramclone.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

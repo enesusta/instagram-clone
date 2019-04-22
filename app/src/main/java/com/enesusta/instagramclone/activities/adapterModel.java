@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.model;
+package com.enesusta.instagramclone.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.enesusta.instagramclone.activities.ActivityDers4;
 import com.enesusta.instagramclone.R;
 
 import java.util.List;

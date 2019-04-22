@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.muddzdev.styleabletoast.StyleableToast;
 
+import lombok.Getter;
 import lombok.Setter;
 
 
@@ -28,6 +29,8 @@ public class Insert implements InsertDAO {
     private CollectionReference collectionReference = firebaseFirestore.collection("Users");
     private Context context;
     private MyToast myToast;
+    @Getter
+    private boolean statusBool;
 
     public Insert() {
 
@@ -63,11 +66,11 @@ public class Insert implements InsertDAO {
 
                         }
 
-                       // boolean isCorrect = compareUsers(user, email, pass);
+                        // boolean isCorrect = compareUsers(user, email, pass);
 
-                      //  loginMessage(isCorrect);
+                        //  loginMessage(isCorrect);
 
-                          statusMessage(isUser,user);
+                        statusBool = compareUsers(user, email, pass);
 
 
                     }
@@ -78,14 +81,14 @@ public class Insert implements InsertDAO {
     private void statusMessage(boolean status, User user) {
 
         if (status) {
-            StyleableToast.makeText(context,"Bu kullanıcı ismi kullanılmaktadır.", R.style.exampleToast);
+            StyleableToast.makeText(context, "Bu kullanıcı ismi kullanılmaktadır.", R.style.exampleToast);
         } else {
             myToast.show("Kayıt başarılı!");
             collectionReference.add(user);
         }
     }
 
-    private boolean compareUsers(User user, String ... args) {
+    private boolean compareUsers(User user, String... args) {
 
         if (user.getPersonEmail().equals(args[0])
                 && user.getPersonPassword().equals(args[1]))
@@ -101,7 +104,6 @@ public class Insert implements InsertDAO {
         } else {
             myToast.show("Hatalı kullanıcı adı veya şifre.");
         }
-
     }
 
 

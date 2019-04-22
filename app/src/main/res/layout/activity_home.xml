@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Home">
+    tools:context=".view.activities.HomeActivity">
     <!--
         <include
             android:id="@+id/toolbar"

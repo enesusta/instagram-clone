@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.model;
+package com.enesusta.instagramclone.activities;
 
 public class UserModel {
 

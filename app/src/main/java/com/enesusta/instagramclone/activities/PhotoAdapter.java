@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.model;
+package com.enesusta.instagramclone.activities;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
