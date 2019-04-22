@@ -10,117 +10,127 @@
         android:id="@+id/edit_profile_topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:background="@drawable/background_border">
+        android:background="@drawable/background_border"
+        android:padding="5dp">
 
-        <EditText
+        <Button
             android:id="@+id/edit_profile_topbar_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:background="@color/white"
             android:fontFamily="@font/architects_daughter"
+            android:text="Cancel"
+            android:onClick="functionCancel"
             />
 
-        <EditText
-            android:text="Edit Profile"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:fontFamily="@font/architects_daughter"
-            />
+            android:text="Edit Profile"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
-        <EditText
+        <Button
+            android:onClick="functionDone"
             android:id="@+id/edit_profile_topbar_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="4dp"
+            android:background="@color/white"
             android:fontFamily="@font/architects_daughter"
-            android:text="Done"
-            />
+            android:text="Done" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/edit_profile_topbar"
         android:id="@+id/edit_profile_photo_layout"
         android:layout_width="match_parent"
-        android:background="@drawable/background_border"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_profile_topbar"
+        android:background="@drawable/background_border">
 
         <ImageView
-            android:layout_margin="12dp"
             android:id="@+id/edit_profile_photo"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:background="@drawable/addusermale"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            />
+            android:layout_margin="12dp"
+            android:background="@drawable/addusermale" />
+
         <TextView
-            android:layout_below="@+id/edit_profile_photo"
             android:id="@+id/edit_profile_photo_change_text"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_profile_photo"
             android:layout_centerHorizontal="true"
-            android:text="Change Profile Photo"
-            android:fontFamily="@font/architects_daughter"
-            android:background="@color/den"
             android:layout_marginBottom="12dp"
-            android:layout_height="wrap_content" />
+            android:background="@color/den"
+            android:fontFamily="@font/architects_daughter"
+            android:text="Change Profile Photo" />
 
 
     </RelativeLayout>
 
 
     <LinearLayout
-        android:layout_below="@+id/edit_profile_photo_layout"
         android:id="@+id/edit_profile_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical"
+        android:layout_below="@+id/edit_profile_photo_layout"
         android:background="@drawable/background_border"
-        >
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            >
+            android:paddingLeft="10dp">
+
             <TextView
-                android:layout_weight="2"
                 android:id="@+id/edit_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/architects_daughter"
                 android:text="Name"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
+
             <EditText
-                android:layout_weight="8"
                 android:id="@+id/edit_profile_name_edit"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:fontFamily="@font/architects_daughter" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            >
+            android:paddingLeft="10dp">
+
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/edit_profile_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/architects_daughter"
                 android:text="Username"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
+
             <EditText
-                android:layout_weight="8"
                 android:id="@+id/edit_profile_username_edit"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:fontFamily="@font/architects_daughter" />
 
         </LinearLayout>
 
@@ -128,92 +138,101 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            >
+            android:paddingLeft="10dp">
+
             <TextView
-                android:layout_weight="2"
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_website"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text="Website"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
+
             <EditText
-                android:layout_weight="10"
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_website_edit"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            >
+            android:paddingLeft="8dp">
+
             <TextView
-                android:layout_weight="5"
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_bio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="5"
                 android:text="Bio"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
+
             <EditText
-                android:layout_weight="15"
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_bio_edit"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="15" />
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@+id/edit_profile_name_layout"
         android:id="@+id/edit_profile_information_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical"
+        android:layout_below="@+id/edit_profile_name_layout"
         android:background="@drawable/background_border"
-        >
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            >
+            android:paddingLeft="10dp">
+
             <TextView
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
+
             <EditText
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_email_edit"
-                android:layout_marginLeft="41dp"
                 android:layout_width="300dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="41dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            >
+            android:paddingLeft="10dp">
+
             <TextView
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
+
             <EditText
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_phone_edit"
-                android:layout_marginLeft="35dp"
                 android:layout_width="300dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp" />
 
         </LinearLayout>
 
@@ -221,28 +240,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            >
+            android:paddingLeft="8dp">
+
             <TextView
+                android:fontFamily="@font/architects_daughter"
                 android:id="@+id/edit_profile_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gender"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
 
-
     </LinearLayout>
-
-
-
-
-
-
-
 
 
 </RelativeLayout>
