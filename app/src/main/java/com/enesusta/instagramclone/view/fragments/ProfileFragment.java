@@ -37,7 +37,6 @@ public class ProfileFragment extends Fragment implements Initialize {
     private User user = (User) Pointer.getObject("user");
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,15 +49,12 @@ public class ProfileFragment extends Fragment implements Initialize {
         tabLayout = view.findViewById(R.id.tablayout_profile_id);
         viewPager = view.findViewById(R.id.viewpager_profile_id);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
-        viewPagerAdapter.addFragment(new ProfileCyclePhotosFragment());
-        viewPagerAdapter.addFragment(new ProfileCycleListFragment());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(),true);
+        viewPagerAdapter.addFragment(new ProfileCyclePhotosFragment(),"tab1");
+        viewPagerAdapter.addFragment(new ProfileCycleListFragment(),"tab2");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        setIcons(tabLayout);
-
 
         editProfileButton = view.findViewById(R.id.profile_settings_edit_profile_button);
         editProfile(view);
@@ -96,11 +92,10 @@ public class ProfileFragment extends Fragment implements Initialize {
                 R.drawable.comment
         };
 
-        for(int i=0;i<arr.length;i++)
+        for (int i = 0; i < arr.length; i++)
             tabLayout.getTabAt(i).setIcon(arr[i]);
 
     }
-
 
 
 }

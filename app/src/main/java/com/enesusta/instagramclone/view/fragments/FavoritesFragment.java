@@ -29,7 +29,7 @@ public class FavoritesFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tablayout_id);
         viewPager = view.findViewById(R.id.viewpager_id);
 
-        ViewPagerAdapter viewPageAdapter = new ViewPagerAdapter(getFragmentManager());
+        ViewPagerAdapter viewPageAdapter = new ViewPagerAdapter(getFragmentManager(),true);
 
         viewPageAdapter.addFragment(new FavoritesFragmentTabYou(), "Following");
         viewPageAdapter.addFragment(new FavoritesFragmentTabFollowing(), "You");

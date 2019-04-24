@@ -9,11 +9,14 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
+    private boolean status;
+
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> FragmentListTitles = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm,boolean status) {
         super(fm);
+        this.status = status;
     }
 
     @Override
@@ -27,7 +30,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 
     public CharSequence getPageTitle(int position) {
-        return FragmentListTitles.get(position);
+        if(status) return FragmentListTitles.get(position);
+        else return null;
     }
 
 
@@ -39,6 +43,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public void addFragment(Fragment fragment) {
         fragmentList.add(fragment);
     }
+
 
 
 }
