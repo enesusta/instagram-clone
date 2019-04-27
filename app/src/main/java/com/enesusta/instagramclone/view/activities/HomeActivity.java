@@ -14,6 +14,7 @@ import com.enesusta.instagramclone.view.fragments.FavoritesFragment;
 import com.enesusta.instagramclone.view.fragments.HomeFragment;
 import com.enesusta.instagramclone.view.fragments.ProfileFragment;
 import com.enesusta.instagramclone.view.fragments.SearchFragment;
+import com.enesusta.instagramclone.view.fragments.ShareFragment;
 
 /*
 
@@ -72,7 +73,9 @@ public class HomeActivity extends AppCompatActivity implements Initialize {
                         case R.id.nav_home:
                             selectedFragment = new HomeFragment();
                             break;
-
+                        case R.id.nav_share:
+                            selectedFragment = new ShareFragment();
+                            break;
                         case R.id.nav_favorites:
                             selectedFragment = new FavoritesFragment();
                             break;

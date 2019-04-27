@@ -24,7 +24,7 @@ public class ProfileCycleListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                                  Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_profile_list_photos, container, false);
     }
