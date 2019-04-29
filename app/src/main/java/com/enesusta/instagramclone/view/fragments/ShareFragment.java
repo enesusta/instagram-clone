@@ -1,13 +1,20 @@
 package com.enesusta.instagramclone.view.fragments;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +42,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
@@ -68,7 +77,7 @@ public class ShareFragment extends Fragment implements Initialize {
         init(view);
 
 
-        storageReference = firebaseStorage.getReference("uploads");
+        storageReference = firebaseStorage.getReferenceFromUrl("gs://instagramclone-21bd5.appspot.com/");
         databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
 
         initListeners();
@@ -92,87 +101,31 @@ public class ShareFragment extends Fragment implements Initialize {
     private void openFileChooser() {
 
         Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
+
     }
-/*
+
+
     private void uploadFile() {
 
         if (imageUri != null) {
 
-            StorageReference fileRef
-                    = storageReference.child("Images").child(imageUri.getLastPathSegment());
+            StorageReference fileRef = storageReference.child("file.jpg");
 
-            fileRef.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.setProgress(0);
-                                }
-                            }, 5000);
-
-                            String downloadUri = taskSnapshot.getTask().getResult().toString();
-
-                            Toast.makeText(getActivity().getApplicationContext(),"Uplaod Successful", Toast.LENGTH_SHORT).show();
-                            Upload upload = new Upload(editTextFileName.getText().toString().trim(),
-                                    downloadUri);
-
-                            String uploadID = databaseReference.push().getKey();
-                            databaseReference.child(uploadID).setValue(upload);
-
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity().getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            progressBar.setProgress((int) progress);
-                        }
-                    });
-
-        } else {
-            Toast.makeText(getActivity().getApplicationContext(), "No File Selected", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
-**/
-
-    private void uploadFile() {
-
-        if (imageUri != null)
-        {
-            storageReference.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
-            {
+            fileRef.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
-                {
-                    if (!task.isSuccessful())
-                    {
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
                         throw task.getException();
                     }
                     return storageReference.getDownloadUrl();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>()
-            {
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
-                public void onComplete(@NonNull Task<Uri> task)
-                {
-                    if (task.isSuccessful())
-                    {
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
                         Log.e(TAG, "then: " + downloadUri.toString());
 
@@ -180,9 +133,8 @@ public class ShareFragment extends Fragment implements Initialize {
                         Upload upload = new Upload(editTextFileName.getText().toString().trim(),
                                 downloadUri.toString());
 
-                        databaseReference.push().setValue(upload);
-                    } else
-                    {
+                      //  databaseReference.push().setValue(upload);
+                    } else {
                         Toast.makeText(getActivity().getApplicationContext(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -192,16 +144,52 @@ public class ShareFragment extends Fragment implements Initialize {
     }
 
 
-
     private String getFileExtension(Uri uri) {
-        ContentResolver cr = getActivity().getApplicationContext().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(uri));
+
+        String result = "";
+        boolean isok = false;
+        String path = null;
+
+
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_CONTACTS)) {
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        1);
+
+            }
+        } else {
+
+            Cursor cursor = getActivity().getApplicationContext().getContentResolver().
+                    query(uri, null, null, null, null);
+            cursor.moveToFirst();
+            String document_id = cursor.getString(0);
+            document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+            cursor.close();
+
+
+            cursor = getActivity().getApplicationContext().getContentResolver().query(
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+            cursor.moveToFirst();
+            path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            cursor.close();
+        }
+
+
+        return path;
+
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST
