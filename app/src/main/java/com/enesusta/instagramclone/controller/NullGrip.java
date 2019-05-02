@@ -1,8 +1,8 @@
 package com.enesusta.instagramclone.controller;
 
 @FunctionalInterface
-public interface NullGrip {
+public interface NullGrip<E> {
 
-    boolean isNull(String str);
+    boolean isNull(E e);
 
 }

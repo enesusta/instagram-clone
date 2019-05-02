@@ -22,7 +22,10 @@ import android.widget.Toast;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
+import com.enesusta.instagramclone.controller.Pointer;
+import com.enesusta.instagramclone.controller.firebase.UploadImage;
 import com.enesusta.instagramclone.model.Upload;
+import com.enesusta.instagramclone.model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,6 +56,7 @@ public class ShareFragment extends Fragment implements Initialize {
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     private View globalView;
+    private User mUser = (User) Pointer.getObject("user");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,11 +72,12 @@ public class ShareFragment extends Fragment implements Initialize {
         init(view);
 
 
-        storageReference = firebaseStorage.getReference("uploads");
+        storageReference = firebaseStorage.getReference("uploads".concat("/".concat(mUser.getPersonId())));
         databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
 
         initListeners();
 
+        Pointer.putObject("shareFragment",getActivity().getApplicationContext());
 
         return view;
 
@@ -97,82 +102,23 @@ public class ShareFragment extends Fragment implements Initialize {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
     }
-/*
+
+
     private void uploadFile() {
 
         if (imageUri != null) {
-
-            StorageReference fileRef
-                    = storageReference.child("Images").child(imageUri.getLastPathSegment());
-
-            fileRef.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.setProgress(0);
-                                }
-                            }, 5000);
-
-                            String downloadUri = taskSnapshot.getTask().getResult().toString();
-
-                            Toast.makeText(getActivity().getApplicationContext(),"Uplaod Successful", Toast.LENGTH_SHORT).show();
-                            Upload upload = new Upload(editTextFileName.getText().toString().trim(),
-                                    downloadUri);
-
-                            String uploadID = databaseReference.push().getKey();
-                            databaseReference.child(uploadID).setValue(upload);
-
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity().getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            progressBar.setProgress((int) progress);
-                        }
-                    });
-
-        } else {
-            Toast.makeText(getActivity().getApplicationContext(), "No File Selected", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
-**/
-
-    private void uploadFile() {
-
-        if (imageUri != null)
-        {
-            storageReference.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
-            {
+            storageReference.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
-                {
-                    if (!task.isSuccessful())
-                    {
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
                         throw task.getException();
                     }
                     return storageReference.getDownloadUrl();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>()
-            {
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
-                public void onComplete(@NonNull Task<Uri> task)
-                {
-                    if (task.isSuccessful())
-                    {
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
                         Log.e(TAG, "then: " + downloadUri.toString());
 
@@ -180,9 +126,9 @@ public class ShareFragment extends Fragment implements Initialize {
                         Upload upload = new Upload(editTextFileName.getText().toString().trim(),
                                 downloadUri.toString());
 
-                        databaseReference.push().setValue(upload);
-                    } else
-                    {
+                        Toast.makeText(getActivity().getApplicationContext(), "Upload succesful", Toast.LENGTH_SHORT).show();
+
+                    } else {
                         Toast.makeText(getActivity().getApplicationContext(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -190,7 +136,6 @@ public class ShareFragment extends Fragment implements Initialize {
         }
 
     }
-
 
 
     private String getFileExtension(Uri uri) {
@@ -226,7 +171,11 @@ public class ShareFragment extends Fragment implements Initialize {
 
         buttonChoseeImage.setOnClickListener(v -> openFileChooser());
         buttonUpload.setOnClickListener(v -> {
-            uploadFile();
+
+            UploadImage uploadImage = new UploadImage(imageUri,getActivity().getApplicationContext());
+            uploadImage.uploadContent();
+
+
         });
 
     }

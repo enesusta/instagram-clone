@@ -1,21 +1,14 @@
 package com.enesusta.instagramclone.controller.firebase;
 
-/*
- * @author : Enes Usta
- */
+import com.enesusta.instagramclone.controller.Pointer;
+import com.enesusta.instagramclone.model.User;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import lombok.NoArgsConstructor;
 
-public abstract class Share<T> {
+@NoArgsConstructor
+public class Share {
 
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-
-//    DocumentReference documentReference = firebaseFirestore.collection("Users").document(documentSnapshot.getId()).collection("Notes").document();
-
-    public abstract int getResource();
-
-
+    protected User user = (User) Pointer.getObject("user");
 
 
 }
