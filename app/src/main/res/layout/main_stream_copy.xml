@@ -35,7 +35,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/ellipsis"
-            android:layout_marginRight="3dp"
+            android:layout_marginRight="8dp"
             />
 
         <ImageView

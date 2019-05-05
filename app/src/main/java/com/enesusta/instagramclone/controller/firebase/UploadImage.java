@@ -9,9 +9,15 @@ import android.widget.Toast;
 import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.NullGrip;
 import com.enesusta.instagramclone.controller.components.Tool;
+import com.enesusta.instagramclone.model.Upload;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -25,6 +31,7 @@ public class UploadImage extends Share implements Content, Initialize, Tool {
 
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private StorageReference storageReference;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
     private Uri uri;
     private Context context;
 
@@ -65,6 +72,9 @@ public class UploadImage extends Share implements Content, Initialize, Tool {
                         Toast.makeText(context,
                                 "Upload succesful", Toast.LENGTH_SHORT).show();
 
+                        Upload upload = new Upload("", downloadUri.toString());
+                        databaseReference.push().setValue(upload);
+
                     } else {
                         Toast.makeText(context.getApplicationContext(),
                                 "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -85,7 +95,7 @@ public class UploadImage extends Share implements Content, Initialize, Tool {
         storageReference = firebaseStorage.
                 getReference("Users/"
                         .concat(super.user.getPersonId())
-                        .concat("/share/")
+                        .concat("/photos/")
                         .concat(generateRandomHash()));
 
 
@@ -99,9 +109,31 @@ public class UploadImage extends Share implements Content, Initialize, Tool {
     private String generateRandomHash() {
 
         Random rand = new Random(150);
-        Integer randomInt = rand.nextInt();
+        Integer randomInt = rand.nextInt(50000);
         return toString(randomInt.hashCode()).concat(".png");
 
     }
 
+    public void f() {
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    Upload upload = postSnapshot.getValue(Upload.class);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
 }
