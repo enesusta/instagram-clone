@@ -7,6 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * @author : Enes Usta
+ *
+ */
+
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private boolean status;

@@ -22,7 +22,7 @@
             android:id="@+id/loginLogo"
             android:layout_width="170dp"
             android:layout_height="150dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/mainlogo"
             />
 
@@ -76,7 +76,7 @@
 
         <TextView
             android:id="@+id/sign_up_text"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="150dp"
             android:fontFamily="@font/architects_daughter"
             android:layout_width="match_parent"
             android:text="@string/account"

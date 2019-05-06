@@ -4,13 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public interface LocalDate {
+/*
+ * @author : Enes Usta
+ */
 
-    default String getCurrentLocalDate() {
 
+public interface Time {
+
+    default String getTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("Europe/Istanbul"));
-
         return sdf.format(new Date()).toString();
     }
 

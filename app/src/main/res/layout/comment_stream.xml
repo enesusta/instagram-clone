@@ -9,17 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
+        android:id="@+id/comment_relative_layout"
 
         >
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/comment_profile_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="2dp"
             />
 
         <TextView
+            android:padding="5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Line1"
@@ -27,18 +29,19 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView"
-            android:id="@+id/textView"
+            android:layout_toEndOf="@+id/comment_profile_photo"
+            android:id="@+id/comment_user_name"
             />
 
         <TextView
-            android:id="@+id/textView2"
+
+            android:padding="5sp"
+            android:id="@+id/comment_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:text="Line 2"
-            android:layout_below="@+id/textView"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toRightOf="@+id/comment_user_name"
             android:layout_marginStart="8dp"
 
             />

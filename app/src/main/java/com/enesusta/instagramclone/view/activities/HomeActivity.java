@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.enesusta.instagramclone.R;
@@ -44,7 +45,7 @@ SOFTWARE.
 
 
 
-public class HomeActivity extends AppCompatActivity implements Initialize {
+public class HomeActivity extends AppCompatActivity {
 
     private ImageView reloadImageView;
 
@@ -52,8 +53,6 @@ public class HomeActivity extends AppCompatActivity implements Initialize {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initComponents();
-        initListeners();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListeler);
@@ -96,17 +95,4 @@ public class HomeActivity extends AppCompatActivity implements Initialize {
             };
 
 
-    @Override
-    public void initComponents() {
-
-
-    }
-
-    @Override
-    public void initListeners() {
-
-
-
-
-    }
 }

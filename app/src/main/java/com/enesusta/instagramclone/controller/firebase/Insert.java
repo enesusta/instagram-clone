@@ -66,12 +66,7 @@ public class Insert implements InsertDAO {
 
                         }
 
-                        // boolean isCorrect = compareUsers(user, email, pass);
-
-                        //  loginMessage(isCorrect);
-
                         statusBool = compareUsers(user, email, pass);
-
 
                     }
                 });

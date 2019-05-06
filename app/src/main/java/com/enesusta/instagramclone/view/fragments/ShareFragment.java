@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,13 +27,10 @@ import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -154,7 +150,6 @@ public class ShareFragment extends Fragment implements Initialize {
                 data != null && data.getData() != null) {
 
             imageUri = data.getData();
-            editTextFileName.setText(imageUri.toString());
 
             Picasso.get().load(imageUri).into(imageView);
 
@@ -165,6 +160,7 @@ public class ShareFragment extends Fragment implements Initialize {
     public void initComponents() {
 
     }
+
 
     @Override
     public void initListeners() {

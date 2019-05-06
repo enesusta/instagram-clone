@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
         initListeners();
     }
 
+
     @Override
     public void initComponents() {
 
@@ -120,7 +121,6 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
                 goRegister();
             }
         });
-
 
     }
 

@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements Initialize, T
         passwordText = findViewById(R.id.registerPassword);
     }
 
+
     @Override
     public void initListeners() {
 
