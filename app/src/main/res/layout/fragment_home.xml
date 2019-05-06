@@ -36,8 +36,9 @@
             android:background="@drawable/reload"
             android:onClick="onClick"
             />
-
     </LinearLayout>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/toolbar"

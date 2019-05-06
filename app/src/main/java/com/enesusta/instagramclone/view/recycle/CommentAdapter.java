@@ -1,15 +1,20 @@
 package com.enesusta.instagramclone.view.recycle;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
+import com.enesusta.instagramclone.model.Comment;
 import com.enesusta.instagramclone.model.Upload;
+import com.enesusta.instagramclone.view.activities.CommentActivity;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -22,48 +27,40 @@ import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentAdapterHolder> {
 
-    private List<Upload> uploads;
+    private List<Comment> commentList;
+    private Context context;
 
-    public CommentAdapter(List<Upload> uploads) {
-        this.uploads = uploads;
+    public CommentAdapter(List<Comment> commentList, Context context) {
+        this.commentList = commentList;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public CommentAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_s , viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.comment_stream, viewGroup, false);
         return new CommentAdapterHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommentAdapterHolder streamAdapterHolder, int i) {
+    public void onBindViewHolder(@NonNull CommentAdapterHolder holder, int i) {
 
-        Upload uploadCurrent = uploads.get(i);
-/*        streamAdapterHolder.textViewName.setText(uploadCurrent.getUploadName());
+        Comment comment = commentList.get(i);
+        holder.userName.setText(comment.getUserName());
+        holder.content.setText(comment.getContentOfComment());
 
-        Picasso.get()
-                .load(uploadCurrent.getUploadImageUrl())
-                .fit()
-                .centerCrop()
-                .into(streamAdapterHolder.imageView, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                    }
+        holder.relativeLayout.setOnClickListener( act -> {
 
-                    @Override
-                    public void onError(Exception e) {
-                    }
-                });
-                */
+            Intent commentIntent = new Intent(context, CommentActivity.class);
 
-
+        });
 
     }
 
 
     @Override
     public int getItemCount() {
-        return uploads.size();
+        return commentList.size();
     }
 
     public class CommentAdapterHolder extends RecyclerView.ViewHolder {
@@ -71,12 +68,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentA
         TextView userName;
         TextView content;
         ImageView profilePhoto;
+        RelativeLayout relativeLayout;
 
         public CommentAdapterHolder(@NonNull View itemView) {
             super(itemView);
-            userName= itemView.findViewById(R.id.comment_user_name);
+            userName = itemView.findViewById(R.id.comment_user_name);
             profilePhoto = itemView.findViewById(R.id.comment_profile_photo);
             content = itemView.findViewById(R.id.comment_text);
+            relativeLayout = itemView.findViewById(R.id.relativeLayoutTwo);
         }
 
     }
