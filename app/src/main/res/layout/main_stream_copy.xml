@@ -3,13 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="2dp"
+        android:layout_marginBottom="5dp"
         >
 
         <ImageView
@@ -26,6 +25,7 @@
             android:text="Deneme"
             android:fontFamily="@font/architects_daughter"
             android:textStyle="bold"
+            android:textSize="17sp"
             />
 
         <ImageButton
@@ -35,7 +35,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/ellipsis"
-            android:layout_marginRight="8dp"
+            android:layout_margin="8dp"
             />
 
         <ImageView
@@ -43,10 +43,10 @@
             android:layout_marginTop="5dp"
             android:layout_below="@id/main_stream_profile_photo"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="350dp" />
 
         <ImageButton
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="15dp"
             android:id="@+id/main_stream_content_heart"
             android:layout_width="wrap_content"
@@ -56,7 +56,8 @@
             />
 
         <ImageButton
-            android:layout_marginTop="3dp"
+
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/main_stream_content_photo"
             android:layout_toRightOf="@+id/main_stream_content_heart"
@@ -65,8 +66,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-
             />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/main_stream_content_comment"
+            android:id="@+id/main_stream_content_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
 
 
 

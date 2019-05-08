@@ -20,8 +20,8 @@ import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.model.Comment;
 import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.model.User;
-import com.enesusta.instagramclone.view.recycle.CommentAdapter;
-import com.enesusta.instagramclone.view.recycle.StreamAdapter;
+import com.enesusta.instagramclone.view.recycler.CommentAdapter;
+import com.enesusta.instagramclone.view.recycler.StreamAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment implements Initialize {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         prepareView(v);
-        prepareComment(v);
+       // prepareComment(v);
         return v;
 
     }
@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment implements Initialize {
     private void prepareComment(View v) {
 
         comments = new ArrayList<>();
-        commentRecyclerView = v.findViewById(R.id.stream_recycler_view);
+        //commentRecyclerView = v.findViewById(R.id.stream_recycler_view);
         commentRecyclerView.setHasFixedSize(true);
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment implements Initialize {
                                         uploads.add(upload);
                                     }
 
-                                    mAdapter = new StreamAdapter(uploads);
+                                    mAdapter = new StreamAdapter(uploads,getActivity().getApplicationContext());
                                     recyclerView.setAdapter(mAdapter);
 
                                 }

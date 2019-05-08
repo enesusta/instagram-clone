@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.enesusta.instagramclone.controller.Pointer;
-import com.enesusta.instagramclone.controller.components.Tool;
+import com.enesusta.instagramclone.controller.Tool;
 import com.enesusta.instagramclone.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;

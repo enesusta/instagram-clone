@@ -13,12 +13,6 @@
 
         >
 
-        <ImageView
-            android:id="@+id/comment_profile_photo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="2dp"
-            />
 
         <TextView
             android:padding="5sp"
@@ -29,7 +23,6 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/comment_profile_photo"
             android:id="@+id/comment_user_name"
             />
 
@@ -39,7 +32,7 @@
             android:id="@+id/comment_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:text="Line 2"
             android:layout_toRightOf="@+id/comment_user_name"
             android:layout_marginStart="8dp"

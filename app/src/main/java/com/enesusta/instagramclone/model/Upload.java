@@ -1,5 +1,7 @@
 package com.enesusta.instagramclone.model;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,14 +30,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
+
+
 @NoArgsConstructor
 @Data
-public class Upload {
+public class Upload implements Serializable {
 
     private String uploadName;
     private String uploadImageUrl;
     private String userName;
     private String userPhoto;
+    private String uploadID;
 
     public Upload(String uploadName, String uploadImageUrl) {
 

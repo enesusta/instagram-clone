@@ -1,28 +1,41 @@
-package com.enesusta.instagramclone.view.recycle;
+package com.enesusta.instagramclone.view.recycler;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.model.Comment;
-import com.enesusta.instagramclone.model.Upload;
-import com.enesusta.instagramclone.view.activities.CommentActivity;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
-
 /*
- * @author : Enes Usta
+
+MIT License
+
+Copyright (c) 2019 Enes Usta
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
  */
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentAdapterHolder> {
@@ -49,11 +62,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentA
         holder.userName.setText(comment.getUserName());
         holder.content.setText(comment.getContentOfComment());
 
-        holder.relativeLayout.setOnClickListener( act -> {
-
-            Intent commentIntent = new Intent(context, CommentActivity.class);
-
-        });
 
     }
 
@@ -67,15 +75,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentA
 
         TextView userName;
         TextView content;
-        ImageView profilePhoto;
-        RelativeLayout relativeLayout;
 
         public CommentAdapterHolder(@NonNull View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.comment_user_name);
-            profilePhoto = itemView.findViewById(R.id.comment_profile_photo);
             content = itemView.findViewById(R.id.comment_text);
-            relativeLayout = itemView.findViewById(R.id.relativeLayoutTwo);
         }
 
     }

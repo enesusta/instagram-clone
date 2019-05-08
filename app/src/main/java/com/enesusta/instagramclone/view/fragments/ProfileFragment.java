@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.Pointer;
-import com.enesusta.instagramclone.controller.components.ViewPagerAdapter;
+import com.enesusta.instagramclone.controller.ViewPagerAdapter;
 import com.enesusta.instagramclone.model.User;
 import com.enesusta.instagramclone.view.activities.EditProfileActivity;
 

@@ -16,8 +16,29 @@ import com.google.firebase.firestore.QuerySnapshot;
 import lombok.NoArgsConstructor;
 
 /*
- * @author : Enes Usta
- *
+
+MIT License
+
+Copyright (c) 2019 Enes Usta
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
  */
 
 @NoArgsConstructor
@@ -40,52 +61,49 @@ public class SignIn implements LoginDAO {
 
         userReferences.whereEqualTo("personEmail", user.getPersonEmail())
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                .addOnSuccessListener(queryDocumentSnapshots -> {
 
-                        String userEmail = null;
-                        String userCryptedPassword = null;
-                        String userFullName = null;
-                        String userName = null;
-                        String userUID = null;
+                    String userEmail = null;
+                    String userCryptedPassword = null;
+                    String userFullName = null;
+                    String userName = null;
+                    String userUID = null;
 
 
-                        boolean isCorrect;
+                    boolean isCorrect;
 
-                        for (QueryDocumentSnapshot
-                                documentSnapshot : queryDocumentSnapshots) {
+                    for (QueryDocumentSnapshot
+                            documentSnapshot : queryDocumentSnapshots) {
 
-                            User temp = documentSnapshot.toObject(User.class);
+                        User temp = documentSnapshot.toObject(User.class);
 
-                            userEmail = temp.getPersonEmail();
-                            userCryptedPassword = temp.getPersonPassword();
-                            userFullName = temp.getPersonFullName();
-                            userName = temp.getPersonUserName();
-                            userUID = documentSnapshot.getId();
+                        userEmail = temp.getPersonEmail();
+                        userCryptedPassword = temp.getPersonPassword();
+                        userFullName = temp.getPersonFullName();
+                        userName = temp.getPersonUserName();
+                        userUID = documentSnapshot.getId();
 
-                        }
+                    }
 
-                        isCorrect = compareUsers(user, userEmail, userCryptedPassword);
+                    isCorrect = compareUsers(user, userEmail, userCryptedPassword);
 
 
-                        if (isCorrect) {
+                    if (isCorrect) {
 
-                            User userMain = new User();
-                            userMain.setPersonId(userUID);
-                            userMain.setPersonEmail(userEmail);
-                            userMain.setPersonPassword(userCryptedPassword);
-                            userMain.setPersonFullName(userFullName);
-                            userMain.setPersonUserName(userName);
+                        User userMain = new User();
+                        userMain.setPersonId(userUID);
+                        userMain.setPersonEmail(userEmail);
+                        userMain.setPersonPassword(userCryptedPassword);
+                        userMain.setPersonFullName(userFullName);
+                        userMain.setPersonUserName(userName);
 
-                            Pointer.putObject("user", userMain);
-                            goMain();
+                        Pointer.putObject("user", userMain);
+                        goMain();
 
-                        } else {
+                    } else {
 
-                            Toast.makeText(context, "Email yada şifre yanlış", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Email yada şifre yanlış", Toast.LENGTH_LONG).show();
 
-                        }
                     }
                 });
 

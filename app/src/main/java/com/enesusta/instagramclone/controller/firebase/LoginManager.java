@@ -1,12 +1,5 @@
-package com.enesusta.instagramclone.controller.crypt;
+package com.enesusta.instagramclone.controller.firebase;
 
-import com.google.common.hash.Hashing;
-
-import java.nio.charset.StandardCharsets;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /*
 
@@ -34,11 +27,17 @@ SOFTWARE.
 
  */
 
-@NoArgsConstructor
-public class Crpyt {
 
-    public String toHash(String pass) {
-        return Hashing.sha256().hashString(pass, StandardCharsets.UTF_8).toString();
+public class LoginManager {
+
+    private LoginDAO loginDAO;
+
+    public LoginManager(LoginDAO loginDAO) {
+        this.loginDAO = loginDAO;
+    }
+
+    public void authentication() {
+        loginDAO.authentication();
     }
 
 }

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.components.ViewPagerAdapter;
+import com.enesusta.instagramclone.controller.ViewPagerAdapter;
 
 public class FavoritesFragment extends Fragment {
 

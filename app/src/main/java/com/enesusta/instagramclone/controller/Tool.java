@@ -1,12 +1,7 @@
-package com.enesusta.instagramclone.controller.crypt;
+package com.enesusta.instagramclone.controller;
 
-import com.google.common.hash.Hashing;
+import android.widget.TextView;
 
-import java.nio.charset.StandardCharsets;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /*
 
@@ -34,11 +29,15 @@ SOFTWARE.
 
  */
 
-@NoArgsConstructor
-public class Crpyt {
 
-    public String toHash(String pass) {
-        return Hashing.sha256().hashString(pass, StandardCharsets.UTF_8).toString();
+
+public interface Tool {
+
+    default String toChar(TextView textView) {
+        return textView.getText().toString();
+    }
+    default String toString(Integer value) {
+        return String.valueOf(value);
     }
 
 }
