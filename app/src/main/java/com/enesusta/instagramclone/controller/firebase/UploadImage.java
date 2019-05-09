@@ -25,6 +25,8 @@ import com.google.firebase.storage.UploadTask;
 import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataImpl;
 
+import java.util.Map;
+
 /*
 
 MIT License
@@ -104,6 +106,8 @@ public class UploadImage implements ContentService, Initialize, Tool {
 
                         Upload upload = new Upload("", downloadUri.toString());
                         upload.setUserName(user.getPersonUserName());
+                        upload.setUserID(user.getPersonId());
+                        upload.setHeartCounter(0);
 
 //                        databaseReference.push().setValue(upload);
                         String key = databaseReference.push().getKey();
@@ -127,6 +131,7 @@ public class UploadImage implements ContentService, Initialize, Tool {
     }
 
 
+
     @Override
     public void initComponents() {
 
@@ -146,7 +151,7 @@ public class UploadImage implements ContentService, Initialize, Tool {
         databaseReference = firebaseDatabase
                 .getReference("Users")
                 .child(user.getPersonId())
-                .child("Photos");
+                .child("Content");
 
 
     }

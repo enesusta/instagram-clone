@@ -1,12 +1,8 @@
-package com.enesusta.instagramclone.model;
+package com.enesusta.instagramclone.controller.firebase;
 
-import java.io.Serializable;
+import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -28,30 +24,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
-
-@NoArgsConstructor
-@Data
-public class Upload implements Serializable {
-
-    private String uploadName;
-    private String uploadImageUrl;
-    private String userName;
-    private String userPhoto;
-    private String userID;
-    private String uploadID;
-    private int heartCounter;
-
-    public Upload(String uploadName, String uploadImageUrl) {
-
-        if (uploadName.trim().equals(""))
-            uploadName = "No Name";
-
-        this.uploadName = uploadName;
-        this.uploadImageUrl = uploadImageUrl;
-    }
-
-
+public interface CommentService<K,V> {
+    void uploadContent();
+    Map<K,V> getContent();
 }

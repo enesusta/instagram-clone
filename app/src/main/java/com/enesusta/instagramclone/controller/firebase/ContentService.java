@@ -1,7 +1,9 @@
 package com.enesusta.instagramclone.controller.firebase;
 
-/*
+import java.util.List;
+import java.util.Map;
 
+/*
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -23,9 +25,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
-
 
 public interface ContentService {
     void uploadContent();

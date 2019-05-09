@@ -2,17 +2,22 @@ package com.enesusta.instagramclone.controller.firebase;
 
 import java.util.Map;
 
-public class ContentManager {
+public class CommentManager {
 
-    private ContentService contentService;
+    private CommentService contentService;
 
-    public ContentManager(ContentService contentService) {
+    public CommentManager(CommentService contentService) {
         this.contentService = contentService;
     }
 
     public void uploadContent() {
         contentService.uploadContent();
     }
+
+    public Map getContent() {
+        return contentService.getContent();
+    }
+
 
 
 

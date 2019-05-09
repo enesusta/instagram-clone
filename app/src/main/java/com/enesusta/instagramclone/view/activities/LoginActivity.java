@@ -14,6 +14,9 @@ import com.enesusta.instagramclone.controller.PersonList;
 import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.controller.Tool;
 import com.enesusta.instagramclone.controller.crypt.Crpyt;
+import com.enesusta.instagramclone.controller.firebase.CommentManager;
+import com.enesusta.instagramclone.controller.firebase.CommentService;
+import com.enesusta.instagramclone.controller.firebase.CommentServiceImp;
 import com.enesusta.instagramclone.controller.firebase.LoginService;
 import com.enesusta.instagramclone.controller.firebase.LoginManager;
 import com.enesusta.instagramclone.controller.firebase.SignIn;
@@ -98,6 +101,9 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
         setContentView(R.layout.activity_login_screen);
         initComponents();
         initListeners();
+
+
+
     }
 
 

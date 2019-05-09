@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
+import com.enesusta.instagramclone.controller.firebase.ContentManager;
+import com.enesusta.instagramclone.controller.firebase.ContentService;
+import com.enesusta.instagramclone.controller.firebase.Counter;
 import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.view.activities.ProfileIntentActivity;
 import com.squareup.picasso.Picasso;
@@ -49,7 +52,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
     private List<Upload> uploads;
     private Context context;
 
-    public StreamAdapter( List<Upload> uploads, Context context) {
+    public StreamAdapter(List<Upload> uploads, Context context) {
         this.uploads = uploads;
         this.context = context;
     }
@@ -57,7 +60,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
     @NonNull
     @Override
     public StreamAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_stream, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_stream, viewGroup, false);
         return new StreamAdapterHolder(v);
     }
 
@@ -81,26 +84,27 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
 
         });
 
+        //streamAdapterHolder.heartCounter.setText(uploadCurrent.getHeartCounter());
+
         streamAdapterHolder.heartButton.setOnClickListener(v -> {
+
             v.setSelected(!v.isSelected());
+
+            ContentService contentService = new Counter(uploadCurrent);
+            ContentManager contentManager = new ContentManager(contentService);
+            contentManager.uploadContent();
+
         });
 
 
 
-     /*   streamAdapterHolder.recyclerView.setHasFixedSize(true);
-        streamAdapterHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        Comment c1 = new Comment();
-        c1.setUserName("Enes");
-        Comment c2 = new Comment();
-        c2.setContentOfComment("Deneme");
 
-        List<Comment> comments = new ArrayList<>();
 
-        streamAdapterHolder.adapter = new CommentAdapter(comments,context);
-        streamAdapterHolder.recyclerView.setAdapter(streamAdapterHolder.adapter);
-*/
-
+       /* CommentService<String, Object> commentService = new CommentServiceImp<>(uploadCurrent);
+        CommentManager manager = new CommentManager(commentService);
+        manager.uploadContent();
+        */
     }
 
 

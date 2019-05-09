@@ -95,7 +95,7 @@ public class MainStream implements StreamService {
                             databaseReference = firebaseDatabase
                                     .getReference("Users")
                                     .child(documentSnapshot.getId())
-                                    .child("Photos");
+                                    .child("Content");
 
                             databaseReference.addValueEventListener(new ValueEventListener() {
                                 @Override

@@ -70,12 +70,9 @@ public class RegisterActivity extends AppCompatActivity implements Initialize, T
 
         Pointer.putObject("mainUser",user);
 
-
         LoginService signUp = new SignUp(getApplicationContext());
-
         LoginManager signManager = new LoginManager(signUp);
         signManager.authentication();
-
 
     }
 
@@ -94,22 +91,9 @@ public class RegisterActivity extends AppCompatActivity implements Initialize, T
 
     }
 
-    private void goMain() {
+    private void switchToRegisterActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    private void sleep() {
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Context getRegisterScreenContext() {
-        return this.getApplicationContext();
     }
 
 }

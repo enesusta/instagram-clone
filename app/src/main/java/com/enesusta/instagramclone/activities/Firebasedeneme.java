@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.MyToast;
-import com.enesusta.instagramclone.controller.crypt.Crpyt;
-import com.enesusta.instagramclone.controller.firebase.Insert;
 import com.enesusta.instagramclone.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,9 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -106,13 +101,9 @@ public class Firebasedeneme extends AppCompatActivity {
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
 
-
                 User user = new User();
                 user.setPersonEmail(title);
                // user.setPersonPassword(crpyt.getPass());
-
-                Insert insert = new Insert(getApplicationContext());
-                insert.execute(user);
 
                 Log.d(TAG, "Calisiyor");
 
