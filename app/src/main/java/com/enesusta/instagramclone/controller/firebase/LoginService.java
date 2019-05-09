@@ -1,6 +1,5 @@
 package com.enesusta.instagramclone.controller.firebase;
 
-
 /*
 
 MIT License
@@ -27,17 +26,6 @@ SOFTWARE.
 
  */
 
-
-public class LoginManager {
-
-    private LoginService loginService;
-
-    public LoginManager(LoginService loginService) {
-        this.loginService = loginService;
-    }
-
-    public void authentication() {
-        loginService.authentication();
-    }
-
+public interface LoginService {
+    void authentication();
 }

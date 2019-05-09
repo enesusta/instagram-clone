@@ -14,7 +14,7 @@ import com.enesusta.instagramclone.controller.PersonList;
 import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.controller.Tool;
 import com.enesusta.instagramclone.controller.crypt.Crpyt;
-import com.enesusta.instagramclone.controller.firebase.LoginDAO;
+import com.enesusta.instagramclone.controller.firebase.LoginService;
 import com.enesusta.instagramclone.controller.firebase.LoginManager;
 import com.enesusta.instagramclone.controller.firebase.SignIn;
 import com.enesusta.instagramclone.model.User;
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
             else
                 Pointer.putObject("mainUser", user);
 
-            LoginDAO signIn = new SignIn(getApplicationContext());
+            LoginService signIn = new SignIn(getApplicationContext());
 
             LoginManager signManager = new LoginManager(signIn);
             signManager.authentication();

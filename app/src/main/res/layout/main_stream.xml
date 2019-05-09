@@ -51,22 +51,47 @@
             android:id="@+id/main_stream_content_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/heart"
+            android:background="@drawable/button"
             android:layout_below="@+id/main_stream_content_photo"
+            />
+
+        <TextView
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/main_stream_content_heart_counter"
+            android:layout_below="@id/main_stream_content_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_stream_content_heart"
+            android:textSize="15sp"
+            android:text="0"
             />
 
         <ImageButton
 
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_below="@+id/main_stream_content_photo"
-            android:layout_toRightOf="@+id/main_stream_content_heart"
+            android:layout_toRightOf="@+id/main_stream_content_heart_counter"
             android:id="@+id/main_stream_content_comment"
             android:background="@drawable/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             />
+
+        <TextView
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/main_stream_content_comment_counter"
+            android:layout_below="@id/main_stream_content_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/main_stream_content_comment"
+            android:textSize="15sp"
+            android:text="0"
+            />
+
 
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="10dp"

@@ -3,22 +3,19 @@ package com.enesusta.instagramclone.view.recycler;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.model.Comment;
 import com.enesusta.instagramclone.model.Upload;
-import com.enesusta.instagramclone.view.activities.CommentActivity;
 import com.enesusta.instagramclone.view.activities.ProfileIntentActivity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -60,7 +57,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
     @NonNull
     @Override
     public StreamAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_stream_copy , viewGroup, false);
+        View v  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_stream, viewGroup, false);
         return new StreamAdapterHolder(v);
     }
 
@@ -84,7 +81,13 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
 
         });
 
-        streamAdapterHolder.recyclerView.setHasFixedSize(true);
+        streamAdapterHolder.heartButton.setOnClickListener(v -> {
+            v.setSelected(!v.isSelected());
+        });
+
+
+
+     /*   streamAdapterHolder.recyclerView.setHasFixedSize(true);
         streamAdapterHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         Comment c1 = new Comment();
@@ -96,6 +99,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
 
         streamAdapterHolder.adapter = new CommentAdapter(comments,context);
         streamAdapterHolder.recyclerView.setAdapter(streamAdapterHolder.adapter);
+*/
 
     }
 
@@ -108,7 +112,13 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
     public class StreamAdapterHolder extends RecyclerView.ViewHolder {
 
         TextView textViewName;
+        TextView heartCounter;
+        TextView commentCounter;
+
         ImageView imageView;
+        ImageButton heartButton;
+        ImageButton commentButton;
+
         RecyclerView recyclerView;
         RecyclerView.Adapter adapter;
         RecyclerView.LayoutManager layoutManager;
@@ -120,7 +130,10 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
             textViewName = itemView.findViewById(R.id.main_stream_profile_name_text);
             imageView = itemView.findViewById(R.id.main_stream_content_photo);
             recyclerView = itemView.findViewById(R.id.main_stream_content_recycler_view);
-
+            heartCounter = itemView.findViewById(R.id.main_stream_content_heart_counter);
+            commentCounter = itemView.findViewById(R.id.main_stream_content_comment_counter);
+            heartButton = itemView.findViewById(R.id.main_stream_content_heart);
+            commentButton = itemView.findViewById(R.id.main_stream_content_comment);
 
         }
 

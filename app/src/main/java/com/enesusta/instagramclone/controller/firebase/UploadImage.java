@@ -3,7 +3,6 @@ package com.enesusta.instagramclone.controller.firebase;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.enesusta.instagramclone.controller.Initialize;
@@ -25,8 +24,6 @@ import com.google.firebase.storage.UploadTask;
 
 import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataImpl;
-
-import static android.content.ContentValues.TAG;
 
 /*
 
@@ -55,7 +52,7 @@ SOFTWARE.
  */
 
 
-public class UploadImage implements Content, Initialize, Tool {
+public class UploadImage implements ContentService, Initialize, Tool {
 
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();

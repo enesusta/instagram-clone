@@ -1,5 +1,5 @@
 package com.enesusta.instagramclone.controller.firebase;
 
-public interface Content {
+public interface ContentService {
     void uploadContent();
 }

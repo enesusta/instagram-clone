@@ -16,7 +16,7 @@ import es.dmoral.toasty.Toasty;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class SignUp implements LoginDAO, Tool {
+public class SignUp implements LoginService, Tool {
 
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference userReferences = firebaseFirestore.collection("Users");

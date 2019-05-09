@@ -1,58 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:background="@color/whitest"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/camera"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="75dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
+            android:layout_gravity="center_vertical"
             android:fontFamily="@font/architects_daughter"
+            android:text="Instagram"
             android:textSize="25dp"
-            android:text="Instagram" />
 
-        <ImageButton
-            android:id="@+id/toolbar_reload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/reload"
-            android:onClick="onClick"
             />
+
+
     </LinearLayout>
 
 
-
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/toolbar"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:padding="4dp"
-        android:scrollbars="vertical"
-        >
+        android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
-
-
-
 
 
 </RelativeLayout>

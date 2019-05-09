@@ -130,7 +130,6 @@ public class HomeFragment extends Fragment implements Initialize {
                                             .document(documentSnapshot.getId())
                                             .collection("Photos");
 
-                            Log.d("koleksiyon id", documentSnapshot.getId());
 
                             databaseReference = firebaseDatabase
                                     .getReference("Users")
@@ -168,7 +167,6 @@ public class HomeFragment extends Fragment implements Initialize {
 
 
     public void onClick(View v) {
-        Toast.makeText(v.getContext(), "Deneme", Toast.LENGTH_SHORT);
     }
 
     @Override

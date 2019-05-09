@@ -12,7 +12,7 @@ import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.controller.Tool;
 import com.enesusta.instagramclone.controller.crypt.Crpyt;
-import com.enesusta.instagramclone.controller.firebase.LoginDAO;
+import com.enesusta.instagramclone.controller.firebase.LoginService;
 import com.enesusta.instagramclone.controller.firebase.LoginManager;
 import com.enesusta.instagramclone.controller.firebase.SignUp;
 import com.enesusta.instagramclone.model.User;
@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements Initialize, T
         Pointer.putObject("mainUser",user);
 
 
-        LoginDAO signUp = new SignUp(getApplicationContext());
+        LoginService signUp = new SignUp(getApplicationContext());
 
         LoginManager signManager = new LoginManager(signUp);
         signManager.authentication();

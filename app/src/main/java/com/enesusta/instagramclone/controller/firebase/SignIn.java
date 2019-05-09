@@ -7,11 +7,9 @@ import android.widget.Toast;
 import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.model.User;
 import com.enesusta.instagramclone.view.activities.HomeActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import lombok.NoArgsConstructor;
 
@@ -42,7 +40,7 @@ SOFTWARE.
  */
 
 @NoArgsConstructor
-public class SignIn implements LoginDAO {
+public class SignIn implements LoginService {
 
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference userReferences = firebaseFirestore.collection("Users");
