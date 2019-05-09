@@ -1,5 +1,7 @@
 package com.enesusta.instagramclone.controller.firebase;
 
+import android.view.View;
+
 /*
 
 MIT License
@@ -27,6 +29,18 @@ SOFTWARE.
  */
 
 
-public interface ContentService {
-    void uploadContent();
+public class StreamProvider {
+
+    private StreamService streamService;
+    private View v;
+
+    public StreamProvider(StreamService streamService,View v) {
+        this.streamService = streamService;
+        this.v = v;
+    }
+
+    public void flow() {
+        streamService.flow(v);
+    }
+
 }

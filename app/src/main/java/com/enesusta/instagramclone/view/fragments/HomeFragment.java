@@ -17,6 +17,9 @@ import android.widget.Toast;
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.Pointer;
+import com.enesusta.instagramclone.controller.firebase.MainStream;
+import com.enesusta.instagramclone.controller.firebase.StreamProvider;
+import com.enesusta.instagramclone.controller.firebase.StreamService;
 import com.enesusta.instagramclone.model.Comment;
 import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.model.User;
@@ -63,110 +66,20 @@ SOFTWARE.
 
  */
 
-
-public class HomeFragment extends Fragment implements Initialize {
-
-
-    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference;
-    private CollectionReference collectionReference = firebaseFirestore.collection("Users");
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-    private RecyclerView commentRecyclerView;
-    private RecyclerView.Adapter commentAdapter;
-    private RecyclerView.LayoutManager commentManager;
-
-    protected User user = (User) Pointer.getObject("user");
-    private List<Upload> uploads;
-    private List<Comment> comments;
+public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        prepareView(v);
-       // prepareComment(v);
+
+        StreamService streamService = new MainStream();
+        StreamProvider streamProvider = new StreamProvider(streamService,v);
+        streamProvider.flow();
+
         return v;
 
-    }
-
-    private void prepareComment(View v) {
-
-        comments = new ArrayList<>();
-        //commentRecyclerView = v.findViewById(R.id.stream_recycler_view);
-        commentRecyclerView.setHasFixedSize(true);
-        commentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-
-        commentAdapter = new CommentAdapter(comments,getActivity().getApplicationContext());
-        commentRecyclerView.setAdapter(commentAdapter);
-    }
-
-
-    private void prepareView(View v) {
-
-
-        uploads = new ArrayList<>();
-        recyclerView = v.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-
-
-        collectionReference.get()
-
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-
-                            CollectionReference collectionReference =
-                                    firebaseFirestore
-                                            .collection("Users")
-                                            .document(documentSnapshot.getId())
-                                            .collection("Photos");
-
-
-                            databaseReference = firebaseDatabase
-                                    .getReference("Users")
-                                    .child(documentSnapshot.getId())
-                                    .child("Photos");
-
-                            databaseReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        Upload upload = snapshot.getValue(Upload.class);
-                                        uploads.add(upload);
-                                    }
-
-                                    mAdapter = new StreamAdapter(uploads,getActivity().getApplicationContext());
-                                    recyclerView.setAdapter(mAdapter);
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-
-
-                        }
-                    }
-                });
-
-
-    }
-
-
-
-    public void onClick(View v) {
     }
 
     @Override
@@ -175,14 +88,4 @@ public class HomeFragment extends Fragment implements Initialize {
 
     }
 
-    @Override
-    public void initComponents() {
-
-    }
-
-
-    @Override
-    public void initListeners() {
-
-    }
 }
