@@ -1,58 +1,61 @@
 package com.enesusta.instagramclone.view.fragments;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
-import com.enesusta.instagramclone.controller.Pointer;
-import com.enesusta.instagramclone.controller.firebase.UploadImage;
-import com.enesusta.instagramclone.model.Upload;
-import com.enesusta.instagramclone.model.User;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.enesusta.instagramclone.controller.firebase.ContentManager;
+import com.enesusta.instagramclone.controller.firebase.ContentService;
+import com.enesusta.instagramclone.controller.firebase.ImageUploader;
 import com.squareup.picasso.Picasso;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
+
+/*
+
+MIT License
+
+Copyright (c) 2019 Enes Usta
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+ */
+
+
 
 public class ShareFragment extends Fragment implements Initialize {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button buttonChoseeImage;
     private Button buttonUpload;
-    private TextView textViewShowUploads;
-    private EditText editTextFileName;
     private ImageView imageView;
-    private ProgressBar progressBar;
     private Uri imageUri;
-    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-    private StorageReference storageReference;
-    private DatabaseReference databaseReference;
-    private View globalView;
-    private User mUser = (User) Pointer.getObject("user");
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,16 +67,9 @@ public class ShareFragment extends Fragment implements Initialize {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_share, container, false);
-        globalView = view;
+
         init(view);
-
-
-        storageReference = firebaseStorage.getReference("uploads".concat("/".concat(mUser.getPersonId())));
-        databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
-
         initListeners();
-
-        Pointer.putObject("shareFragment",getActivity().getApplicationContext());
 
         return view;
 
@@ -83,10 +79,7 @@ public class ShareFragment extends Fragment implements Initialize {
 
         buttonChoseeImage = v.findViewById(R.id.button_choose_image);
         buttonUpload = v.findViewById(R.id.button_upload);
-        textViewShowUploads = v.findViewById(R.id.text_view_shop_uploads);
-        editTextFileName = v.findViewById(R.id.edit_text_file_name);
         imageView = v.findViewById(R.id.image_view);
-        progressBar = v.findViewById(R.id.prograss_bar);
 
     }
 
@@ -97,47 +90,6 @@ public class ShareFragment extends Fragment implements Initialize {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
-    }
-
-
-    private void uploadFile() {
-
-        if (imageUri != null) {
-            storageReference.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-                    return storageReference.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        Uri downloadUri = task.getResult();
-                        Log.e(TAG, "then: " + downloadUri.toString());
-
-
-                        Upload upload = new Upload(editTextFileName.getText().toString().trim(),
-                                downloadUri.toString());
-
-                        Toast.makeText(getActivity().getApplicationContext(), "Upload succesful", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-    }
-
-
-    private String getFileExtension(Uri uri) {
-        ContentResolver cr = getActivity().getApplicationContext().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
 
@@ -166,11 +118,12 @@ public class ShareFragment extends Fragment implements Initialize {
     public void initListeners() {
 
         buttonChoseeImage.setOnClickListener(v -> openFileChooser());
+
         buttonUpload.setOnClickListener(v -> {
 
-            UploadImage uploadImage = new UploadImage(imageUri,getActivity().getApplicationContext());
-            uploadImage.uploadContent();
-
+            ContentService uploadService = new ImageUploader(imageUri, getActivity().getApplicationContext());
+            ContentManager manager = new ContentManager(uploadService);
+            manager.uploadContent();
 
         });
 

@@ -3,6 +3,8 @@ package com.enesusta.instagramclone.view.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -55,18 +57,25 @@ public class EditProfileActivity extends AppCompatActivity implements Initialize
     private Uri imageURI;
     private ImageView profileImageView;
     private TextView profileChangeTextView;
+    private Button doneButton;
+    private Button cancelButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
-        profileImageView = findViewById(R.id.edit_profile_photo);
-        profileChangeTextView = findViewById(R.id.edit_profile_photo_change_button);
+        initComponents();
+        initListeners();
     }
 
     @Override
     public void initComponents() {
+
+        profileImageView = findViewById(R.id.edit_profile_photo);
+        profileChangeTextView = findViewById(R.id.edit_profile_photo_change_button);
+        doneButton = findViewById(R.id.edit_profile_topbar_done);
+        cancelButton = findViewById(R.id.edit_profile_topbar_cancel);
 
     }
 
@@ -74,35 +83,26 @@ public class EditProfileActivity extends AppCompatActivity implements Initialize
     @Override
     public void initListeners() {
 
-        profileChangeTextView.setOnClickListener( act -> {
+        profileChangeTextView.setOnClickListener(act -> {
             openFileChooser();
+        });
+
+        doneButton.setOnClickListener( act -> {
+
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.fragment_container,new ProfileFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+
+        });
+
+        cancelButton.setOnClickListener( act -> {
         });
 
     }
 
-    public void functionCancel(View v) {
-
-        Intent intent = new Intent(getApplicationContext(), ProfileFragment.class);
-        startActivity(intent);
-
-    }
-
-    public void functionDone(View v) {
-
-        Intent intent = new Intent(getApplicationContext(), ProfileFragment.class);
-        startActivity(intent);
-
-    }
-
-    public void addProfilePhoto(View v) {
-
-        StorageReference storageReference =
-                FirebaseStorage
-                        .getInstance()
-                        .getReference("Users/".concat(user.getPersonId()).concat("main.png"));
-
-
-    }
 
     private void openFileChooser() {
 
@@ -117,11 +117,12 @@ public class EditProfileActivity extends AppCompatActivity implements Initialize
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PICK_IMAGE_REQUEST
+        if (requestCode == PICK_IMAGE_REQUEST
                 && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
 
             imageURI = data.getData();
+            profileImageView.setImageResource(0);
             Picasso.get().load(imageURI).into(profileImageView);
 
         }

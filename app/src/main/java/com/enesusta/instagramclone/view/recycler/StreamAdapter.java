@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
     private Context context;
 
     public StreamAdapter(List<Upload> uploads, Context context) {
+        super();
         this.uploads = uploads;
         this.context = context;
     }
@@ -84,7 +86,7 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
 
         });
 
-        //streamAdapterHolder.heartCounter.setText(uploadCurrent.getHeartCounter());
+        streamAdapterHolder.heartCounter.setText(String.valueOf(uploadCurrent.getHeartCounter()));
 
         streamAdapterHolder.heartButton.setOnClickListener(v -> {
 
@@ -95,7 +97,6 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
             contentManager.uploadContent();
 
         });
-
 
 
 

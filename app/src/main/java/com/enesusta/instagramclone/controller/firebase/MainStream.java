@@ -110,7 +110,6 @@ public class MainStream implements StreamService {
                                     recyclerView.setAdapter(mAdapter);
 
                                 }
-
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whitest"
     tools:context="com.enesusta.instagramclone.view.activities.EditProfileActivity">
 
     <RelativeLayout
@@ -34,7 +35,6 @@
             android:textStyle="bold" />
 
         <Button
-            android:onClick="functionDone"
             android:id="@+id/edit_profile_topbar_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +61,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="12dp"
-            android:background="@drawable/addusermale" />
+            android:background="@drawable/addusermale"
+            />
 
         <TextView
             android:id="@+id/edit_profile_photo_change_button"
@@ -71,7 +72,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="12dp"
             android:background="@color/den"
-            android:onClick="addProfilePhoto"
             android:fontFamily="@font/architects_daughter"
             android:text="Change Profile Photo" />
 

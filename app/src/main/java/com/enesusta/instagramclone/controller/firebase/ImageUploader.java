@@ -54,7 +54,7 @@ SOFTWARE.
  */
 
 
-public class UploadImage implements ContentService, Initialize, Tool {
+public class ImageUploader implements ContentService, Initialize, Tool {
 
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -67,7 +67,7 @@ public class UploadImage implements ContentService, Initialize, Tool {
     protected User user = (User) Pointer.getObject("user");
 
 
-    public UploadImage(Uri uri, Context context) {
+    public ImageUploader(Uri uri, Context context) {
         this.uri = uri;
         this.context = context;
         initComponents();
@@ -98,9 +98,7 @@ public class UploadImage implements ContentService, Initialize, Tool {
                 public void onComplete(@NonNull Task<Uri> task) {
 
                     if (task.isSuccessful()) {
-
                         Uri downloadUri = task.getResult();
-
                         Toast.makeText(context,
                                 "Upload succesful", Toast.LENGTH_SHORT).show();
 
@@ -114,8 +112,6 @@ public class UploadImage implements ContentService, Initialize, Tool {
 
                         upload.setUploadID(key);
                         databaseReference.child(key).setValue(upload);
-
-
 
                     } else {
                         Toast.makeText(context.getApplicationContext(),
