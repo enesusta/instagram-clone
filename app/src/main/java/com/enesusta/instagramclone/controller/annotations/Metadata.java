@@ -1,20 +1,14 @@
-package com.enesusta.instagramclone.view.fragments;
+package com.enesusta.instagramclone.controller.annotations;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.annotations.Metadata;
-import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
+import com.enesusta.instagramclone.controller.enums.Priority;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -36,23 +30,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
-@Metadata(
-        priority = Priority.MEDIUM,
-        type = Type.VIEW,
-        author = "Enes Usta",
-        lastModified = "12/05/2019"
-)
 
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Metadata {
 
+    Priority priority() default Priority.MEDIUM;
+    Type type() default Type.CONTROLLER;
+    String author() default "";
+    String lastModified() default "11/05/2019";
 
-public class SearchFragment extends Fragment {
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search,container,false);
-    }
 }

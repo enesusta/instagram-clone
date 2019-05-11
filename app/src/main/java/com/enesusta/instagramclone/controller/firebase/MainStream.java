@@ -10,7 +10,7 @@ import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.model.Comment;
 import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.model.User;
-import com.enesusta.instagramclone.view.recycler.StreamAdapter;
+import com.enesusta.instagramclone.controller.recycler.StreamAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

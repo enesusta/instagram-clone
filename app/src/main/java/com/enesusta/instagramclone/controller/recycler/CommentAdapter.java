@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.view.recycler;
+package com.enesusta.instagramclone.controller.recycler;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.model.Comment;
 
 import java.util.List;
@@ -37,6 +40,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
+
+
+@Metadata(
+        priority = Priority.HIGH,
+        type = Type.CONTROLLER,
+        author = "Enes Usta",
+        lastModified = "01/05/2019"
+)
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentAdapterHolder> {
 

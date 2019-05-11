@@ -13,6 +13,9 @@ import android.widget.ImageView;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.controller.firebase.ContentManager;
 import com.enesusta.instagramclone.controller.firebase.ContentService;
 import com.enesusta.instagramclone.controller.firebase.ImageUploader;
@@ -46,6 +49,12 @@ SOFTWARE.
 
  */
 
+@Metadata(
+        priority = Priority.MEDIUM,
+        type = Type.VIEW,
+        author = "Enes Usta",
+        lastModified = "27/04/2019"
+)
 
 
 public class ShareFragment extends Fragment implements Initialize {

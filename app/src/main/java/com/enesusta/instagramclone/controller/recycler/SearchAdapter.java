@@ -1,23 +1,14 @@
-package com.enesusta.instagramclone.view.recycler;
+package com.enesusta.instagramclone.controller.recycler;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.firebase.ContentManager;
-import com.enesusta.instagramclone.controller.firebase.ContentService;
-import com.enesusta.instagramclone.controller.firebase.Counter;
 import com.enesusta.instagramclone.model.Upload;
-import com.enesusta.instagramclone.view.activities.ProfileIntentActivity;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 

@@ -1,10 +1,9 @@
-package com.enesusta.instagramclone.view.recycler;
+package com.enesusta.instagramclone.controller.recycler;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.controller.firebase.ContentManager;
 import com.enesusta.instagramclone.controller.firebase.ContentService;
 import com.enesusta.instagramclone.controller.firebase.Counter;
@@ -47,6 +49,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
+
+@Metadata(
+        priority = Priority.HIGH,
+        type = Type.CONTROLLER,
+        author = "Enes Usta",
+        lastModified = "01/05/2019"
+)
+
+
 
 public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdapterHolder> {
 
@@ -99,13 +110,6 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
         });
 
 
-
-
-
-       /* CommentService<String, Object> commentService = new CommentServiceImp<>(uploadCurrent);
-        CommentManager manager = new CommentManager(commentService);
-        manager.uploadContent();
-        */
     }
 
 

@@ -14,9 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.controller.ViewPagerAdapter;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.model.User;
 import com.enesusta.instagramclone.view.activities.EditProfileActivity;
 
@@ -46,8 +48,15 @@ SOFTWARE.
 
  */
 
+@Metadata(
+        priority = Priority.MEDIUM,
+        type = Type.VIEW,
+        author = "Enes Usta",
+        lastModified = "05/05/2019"
+)
 
-public class ProfileFragment extends Fragment implements Initialize {
+
+public class ProfileFragment extends Fragment {
 
     private TextView profileUserText;
     private Button editProfileButton;
@@ -63,6 +72,14 @@ public class ProfileFragment extends Fragment implements Initialize {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        init(view);
+        editProfile(view);
+
+        return view;
+
+    }
+
+    private void init(View view) {
 
         profileUserText = view.findViewById(R.id.profile_user_text);
         profileUserText.setText(user.getPersonFullName());
@@ -76,28 +93,14 @@ public class ProfileFragment extends Fragment implements Initialize {
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        editProfileButton = view.findViewById(R.id.profile_settings_edit_profile_button);
-        editProfile(view);
-
-        return view;
-
-    }
-
-    @Override
-    public void initComponents() {
-
     }
 
 
-    @Override
-    public void initListeners() {
-
-    }
 
     private void editProfile(View v) {
 
         Intent intent = new Intent(v.getContext(), EditProfileActivity.class);
+        editProfileButton = v.findViewById(R.id.profile_settings_edit_profile_button);
 
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,17 +110,6 @@ public class ProfileFragment extends Fragment implements Initialize {
         });
     }
 
-    private void setIcons(TabLayout tabLayout) {
-
-        int[] arr = {
-                R.drawable.comment,
-                R.drawable.comment
-        };
-
-        for (int i = 0; i < arr.length; i++)
-            tabLayout.getTabAt(i).setIcon(arr[i]);
-
-    }
 
 
 }
