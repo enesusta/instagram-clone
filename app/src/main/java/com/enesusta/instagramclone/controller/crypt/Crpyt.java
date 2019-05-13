@@ -1,5 +1,8 @@
 package com.enesusta.instagramclone.controller.crypt;
 
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
 import com.google.common.hash.Hashing;
 
 import java.nio.charset.StandardCharsets;
@@ -33,6 +36,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
+@Metadata(
+        priority = Priority.HIGH,
+        type = Type.CONTROLLER,
+        author = "Enes Usta",
+        lastModified = "14/04/2019"
+)
+
 
 @NoArgsConstructor
 public class Crpyt {

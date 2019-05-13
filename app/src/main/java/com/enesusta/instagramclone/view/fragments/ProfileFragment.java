@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
@@ -19,6 +20,9 @@ import com.enesusta.instagramclone.controller.ViewPagerAdapter;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
+import com.enesusta.instagramclone.controller.firebase.ProfileStream;
+import com.enesusta.instagramclone.controller.firebase.StreamProvider;
+import com.enesusta.instagramclone.controller.firebase.StreamService;
 import com.enesusta.instagramclone.model.User;
 import com.enesusta.instagramclone.view.activities.EditProfileActivity;
 
@@ -59,7 +63,7 @@ SOFTWARE.
 public class ProfileFragment extends Fragment {
 
     private TextView profileUserText;
-    private Button editProfileButton;
+    private ImageButton editProfileButton;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -75,6 +79,11 @@ public class ProfileFragment extends Fragment {
         init(view);
         editProfile(view);
 
+        StreamService profileService = new ProfileStream();
+        StreamProvider streamProvider = new StreamProvider(profileService, view);
+        streamProvider.flow();
+
+
         return view;
 
     }
@@ -84,32 +93,17 @@ public class ProfileFragment extends Fragment {
         profileUserText = view.findViewById(R.id.profile_user_text);
         profileUserText.setText(user.getPersonFullName());
 
-        tabLayout = view.findViewById(R.id.tablayout_profile_id);
-        viewPager = view.findViewById(R.id.viewpager_profile_id);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(),true);
-        viewPagerAdapter.addFragment(new ProfileCyclePhotosFragment(),"tab1");
-        viewPagerAdapter.addFragment(new ProfileCycleListFragment(),"tab2");
-
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
     }
-
 
 
     private void editProfile(View v) {
 
         Intent intent = new Intent(v.getContext(), EditProfileActivity.class);
         editProfileButton = v.findViewById(R.id.profile_settings_edit_profile_button);
+        editProfileButton.setOnClickListener(v1 -> startActivity(intent));
 
-        editProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
-            }
-        });
     }
-
 
 
 }

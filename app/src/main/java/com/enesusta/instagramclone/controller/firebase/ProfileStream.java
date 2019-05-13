@@ -10,11 +10,9 @@ import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
-import com.enesusta.instagramclone.model.Comment;
+import com.enesusta.instagramclone.controller.recycler.ProfileAdapter;
 import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.model.User;
-import com.enesusta.instagramclone.controller.recycler.StreamAdapter;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,13 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.NoArgsConstructor;
+
 
 /*
 
@@ -63,9 +60,9 @@ SOFTWARE.
         lastModified = "13/05/2019"
 )
 
-
 @NoArgsConstructor
-public class MainStream implements StreamService {
+public class ProfileStream implements StreamService {
+
 
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -76,16 +73,21 @@ public class MainStream implements StreamService {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    protected User user = (User) Pointer.getObject("user");
+    private User user = (User) Pointer.getObject("user");
     private List<Upload> uploads;
-    private List<Comment> comments;
 
     private void init(View v) {
 
         uploads = new ArrayList<>();
-        recyclerView = v.findViewById(R.id.recyclerView);
+        recyclerView = v.findViewById(R.id.profile_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+
+        databaseReference = firebaseDatabase
+                .getReference("Users")
+                .child(user.getPersonId())
+                .child("Content");
+
     }
 
     @Override
@@ -93,49 +95,36 @@ public class MainStream implements StreamService {
 
         init(v);
 
-        collectionReference.get()
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Upload temp = snapshot.getValue(Upload.class);
+                    uploads.add(temp);
+                }
 
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                mAdapter = new ProfileAdapter(uploads,v.getContext());
+                recyclerView.setAdapter(mAdapter);
 
-                            CollectionReference collectionReference =
-                                    firebaseFirestore
-                                            .collection("Users")
-                                            .document(documentSnapshot.getId())
-                                            .collection("Photos");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            databaseReference = firebaseDatabase
-                                    .getReference("Users")
-                                    .child(documentSnapshot.getId())
-                                    .child("Content");
-
-                            databaseReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        Upload upload = snapshot.getValue(Upload.class);
-                                        uploads.add(upload);
-                                    }
-
-                                    mAdapter = new StreamAdapter(uploads, v.getContext());
-                                    recyclerView.setAdapter(mAdapter);
-
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
+            }
+        });
 
 
-                        }
-                    }
-                });
+
+
+
+
+
+
+
+
+
 
     }
 }

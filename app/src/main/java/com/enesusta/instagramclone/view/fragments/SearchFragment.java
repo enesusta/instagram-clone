@@ -12,6 +12,9 @@ import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
+import com.enesusta.instagramclone.controller.firebase.SearchStream;
+import com.enesusta.instagramclone.controller.firebase.StreamProvider;
+import com.enesusta.instagramclone.controller.firebase.StreamService;
 
 /*
 
@@ -47,12 +50,18 @@ SOFTWARE.
 )
 
 
-
 public class SearchFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search,container,false);
+
+        View v = inflater.inflate(R.layout.fragment_search,container,false);
+
+        StreamService searchService = new SearchStream();
+        StreamProvider streamProvider = new StreamProvider(searchService,v);
+        streamProvider.flow();
+
+        return v;
     }
 }

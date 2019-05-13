@@ -1,5 +1,9 @@
 package com.enesusta.instagramclone.model;
 
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
+
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +34,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
+
+@Metadata(
+        priority = Priority.HIGH,
+        type = Type.MODEL,
+        author = "Enes Usta",
+        lastModified = "13/05/2019"
+)
 
 
 @NoArgsConstructor

@@ -69,31 +69,6 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
     private TextView signText;
     private boolean isNewRecord = false;
 
-    @Override
-    protected void onStart() {
-
-        super.onStart();
-        collectionReference.addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                if (e != null)
-                    return;
-
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-
-                    User user = documentSnapshot.toObject(User.class);
-                    user.setPersonId(documentSnapshot.getId());
-
-                    PersonList personList = PersonList.getInstance();
-                    personList.add(user);
-
-                }
-
-            }
-        });
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +76,6 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
         setContentView(R.layout.activity_login_screen);
         initComponents();
         initListeners();
-
-
 
     }
 

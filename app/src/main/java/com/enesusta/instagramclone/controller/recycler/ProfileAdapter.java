@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +16,10 @@ import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Set;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 /*
@@ -57,34 +57,35 @@ SOFTWARE.
 
 
 @NoArgsConstructor
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchAdapterHolder> {
+public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileAdapterHolder> {
 
-    private List<User> users;
+    private List<Upload> uploads;
     private Context context;
 
-    public SearchAdapter(List<User> users, Context context) {
+    public ProfileAdapter(List<Upload> users, Context context) {
         super();
-        this.users = users;
+        this.uploads = users;
         this.context = context;
     }
 
 
     @NonNull
     @Override
-    public SearchAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.search_stream, viewGroup, false);
-        return new SearchAdapterHolder(v);
+    public ProfileAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.profile_stream, viewGroup, false);
+        return new ProfileAdapterHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAdapterHolder searchAdapterHolder, int i) {
+    public void onBindViewHolder(@NonNull ProfileAdapterHolder profileAdapterHolder, int i) {
 
-        User user = users.get(i);
-        searchAdapterHolder.searchUserText.setText(user.getPersonUserName());
+        Upload upload = uploads.get(i);
 
-        searchAdapterHolder.searchUserText.setOnClickListener( act -> {
-            Toast.makeText(context,user.getPersonFullName(),Toast.LENGTH_SHORT).show();
-        });
+        Picasso.get()
+                .load(upload.getUploadImageUrl())
+                .fit()
+                .centerCrop()
+                .into(profileAdapterHolder.imageView);
 
 
     }
@@ -92,17 +93,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchAdap
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return uploads.size();
     }
 
-    public class SearchAdapterHolder extends RecyclerView.ViewHolder {
+    public class ProfileAdapterHolder extends RecyclerView.ViewHolder {
 
-        private TextView searchUserText;
+        private ImageView imageView;
 
-        public SearchAdapterHolder(@NonNull View itemView) {
+        public ProfileAdapterHolder(@NonNull View itemView) {
 
             super(itemView);
-            searchUserText = itemView.findViewById(R.id.search_stream_profile_name_text);
+            imageView = itemView.findViewById(R.id.profile_stream_content_photo);
 
         }
 

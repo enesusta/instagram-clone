@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/whitest"
+    >
 
     <RelativeLayout
         android:id="@+id/profile_topbar"
@@ -10,11 +12,6 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:background="@drawable/add" />
 
         <TextView
             android:id="@+id/profile_user_text"
@@ -29,10 +26,13 @@
             />
 
         <ImageButton
-            android:id="@+id/profile_feed"
+            android:id="@+id/profile_settings_edit_profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:background="@drawable/edit"
+            />
+
 
     </RelativeLayout>
 
@@ -48,155 +48,26 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:background="@drawable/addusermale"
-            android:padding="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_toRightOf="@id/profile_user_settings_main_photo"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/profile_user_settings_posts_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Posts"
-                        android:fontFamily="@font/architects_daughter"
-                        />
-                    <TextView
-                        android:id="@+id/profile_user_settings_posts_counter"
-                        android:layout_width="wrap_content"
-                        android:layout_below="@id/profile_user_settings_posts_text"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:layout_centerHorizontal="true"
-                        />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/profile_user_settings_followers_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Followers"
-                        android:fontFamily="@font/architects_daughter"
-                        />
-                    <TextView
-                        android:id="@+id/profile_user_settings_followers_counter"
-                        android:layout_width="wrap_content"
-                        android:layout_below="@id/profile_user_settings_followers_text"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:layout_centerHorizontal="true"
-                        />
-
-                </RelativeLayout>
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            />
 
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/profile_user_settings_following_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Followers"
-                        android:fontFamily="@font/architects_daughter"
-                        />
-                    <TextView
-                        android:id="@+id/profile_user_settings_following_counter"
-                        android:layout_width="wrap_content"
-                        android:layout_below="@id/profile_user_settings_following_text"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:layout_centerHorizontal="true"
-                        />
-
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="3dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <Button
-                    android:id="@+id/profile_settings_edit_profile_button"
-                    android:layout_weight="10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/architects_daughter"
-                    android:text="Edit Profile"
-                    android:textSize="10dp"
-                    />
-
-                <ImageButton
-                    android:layout_weight="0.1"
-                    android:layout_margin="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/settings"
-                    />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
     </RelativeLayout>
 
-    <android.support.design.widget.TabLayout
-        android:layout_below="@id/profile_user_settings"
-        android:id="@+id/tablayout_profile_id"
-        style="@style/AppTabLayout"
-        app:tabTextAppearance="@style/AppTabTextAppearance"
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:id="@+id/profile_recycler_view"
+        android:layout_below="@+id/profile_user_settings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        >
+        android:layout_height="match_parent">
 
 
 
-    </android.support.design.widget.TabLayout>
 
-    <android.support.v4.view.ViewPager
-        android:layout_below="@id/tablayout_profile_id"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/viewpager_profile_id">
-
-
-    </android.support.v4.view.ViewPager>
+    </android.support.v7.widget.RecyclerView>
 
 
 
