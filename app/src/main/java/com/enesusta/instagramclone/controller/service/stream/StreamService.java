@@ -1,14 +1,10 @@
-package com.enesusta.instagramclone.controller;
+package com.enesusta.instagramclone.controller.service.stream;
 
-import com.enesusta.instagramclone.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import lombok.Getter;
+import android.view.View;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.service.Service;
 
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -30,25 +26,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
-public class PersonList {
 
-    @Getter
-    private List<User> userList = new ArrayList<>();
-
-    private PersonList() {
-
-    }
-
-    private static final PersonList instance = new PersonList();
-
-    public void add(User user) {
-        userList.add(user);
-    }
-
-    public static PersonList getInstance() {
-        return instance;
-    }
-
+@Metadata(author = "Enes Usta")
+public interface StreamService extends Service {
+    void flow(View v);
 }

@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.firebase.MainStream;
-import com.enesusta.instagramclone.controller.firebase.StreamProvider;
-import com.enesusta.instagramclone.controller.firebase.StreamService;
+import com.enesusta.instagramclone.controller.service.stream.MainStream;
+import com.enesusta.instagramclone.controller.service.stream.Stream;
+import com.enesusta.instagramclone.controller.service.stream.StreamService;
 
 
 /*
@@ -51,8 +51,8 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         StreamService streamService = new MainStream();
-        StreamProvider streamProvider = new StreamProvider(streamService,v);
-        streamProvider.flow();
+        Stream stream = new Stream(streamService,v);
+        stream.flow();
 
         return v;
 

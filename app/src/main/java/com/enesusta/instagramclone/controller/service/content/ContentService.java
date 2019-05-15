@@ -1,8 +1,8 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.content;
 
-
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.service.Service;
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -24,20 +24,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
 
-public class LoginManager {
-
-    private LoginService loginService;
-
-    public LoginManager(LoginService loginService) {
-        this.loginService = loginService;
-    }
-
-    public void authentication() {
-        loginService.authentication();
-    }
-
+@Metadata(author = "Enes Usta")
+public interface ContentService extends Service {
+    void upload();
 }

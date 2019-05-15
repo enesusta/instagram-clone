@@ -1,6 +1,5 @@
 package com.enesusta.instagramclone.view.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,13 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.enesusta.instagramclone.R;
+import com.enesusta.instagramclone.controller.service.login.Account;
 import com.enesusta.instagramclone.controller.Initialize;
+import com.enesusta.instagramclone.controller.service.login.LoginService;
 import com.enesusta.instagramclone.controller.Pointer;
+import com.enesusta.instagramclone.controller.service.login.Registration;
 import com.enesusta.instagramclone.controller.Tool;
 import com.enesusta.instagramclone.controller.crypt.Crpyt;
-import com.enesusta.instagramclone.controller.firebase.LoginService;
-import com.enesusta.instagramclone.controller.firebase.LoginManager;
-import com.enesusta.instagramclone.controller.firebase.SignUp;
 import com.enesusta.instagramclone.model.User;
 
 /*
@@ -68,11 +67,13 @@ public class RegisterActivity extends AppCompatActivity implements Initialize, T
         user.setPersonUserName(toChar(userNameText));
         user.setPersonPassword(cryptedPass);
 
-        Pointer.putObject("mainUser",user);
+        Pointer.putObject("register",user);
 
-        LoginService signUp = new SignUp(getApplicationContext());
-        LoginManager signManager = new LoginManager(signUp);
-        signManager.authentication();
+        LoginService loginService = new Registration(getApplicationContext());
+        Account account = new Account(loginService);
+        account.authentication();
+
+
 
     }
 

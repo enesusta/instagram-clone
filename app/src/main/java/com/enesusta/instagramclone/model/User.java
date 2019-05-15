@@ -11,6 +11,7 @@ import com.google.firebase.firestore.Exclude;
 import java.io.Serializable;
 
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /*
 
@@ -45,6 +46,7 @@ SOFTWARE.
 )
 
 @NoArgsConstructor
+@ToString
 public class User implements Serializable {
 
     private String personEmail;
@@ -56,10 +58,6 @@ public class User implements Serializable {
     private String personBio;
     private String personPhone;
     private String personGender;
-
-
-
-
 
 
 

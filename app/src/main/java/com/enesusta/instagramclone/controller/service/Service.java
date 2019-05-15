@@ -1,14 +1,8 @@
-package com.enesusta.instagramclone.controller;
+package com.enesusta.instagramclone.controller.service;
 
 import com.enesusta.instagramclone.controller.annotations.Metadata;
-import com.enesusta.instagramclone.controller.enums.Priority;
-import com.enesusta.instagramclone.controller.enums.Type;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -30,37 +24,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
-@Metadata(
-        priority = Priority.HIGH,
-        type = Type.CONTROLLER,
-        author = "Enes Usta",
-        lastModified = "16/04/2019"
-)
 
-
-public class Pointer {
-
-    private static Map<String,Object> map = new HashMap<>();
-
-    public static void putObject(String string, Object object) {
-        map.put(string,object);
-    }
-
-    public static Object getObject(String str) {
-        return map.get(str);
-    }
-
-    public static void removeObject(String string) {
-        map.remove(string);
-    }
-
-    public static Map<String,Object> getMap() {
-        return map;
-    }
-
-
-
-}
+@Metadata(author = "Enes Usta")
+public interface Service { }

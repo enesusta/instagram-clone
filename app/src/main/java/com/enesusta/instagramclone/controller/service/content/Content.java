@@ -1,7 +1,11 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.content;
 
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
+
+import lombok.NoArgsConstructor;
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -23,9 +27,27 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
-public interface LoginService {
-    void authentication();
+
+@Metadata(
+        priority = Priority.HIGH,
+        type = Type.CONTROLLER,
+        author = "Enes Usta",
+        lastModified = "13/05/2019"
+)
+
+@NoArgsConstructor
+public class Content {
+
+    private ContentService contentService;
+
+    public Content(ContentService contentService) {
+        this.contentService = contentService;
+    }
+
+    public void upload() {
+        contentService.upload();
+    }
+
 }

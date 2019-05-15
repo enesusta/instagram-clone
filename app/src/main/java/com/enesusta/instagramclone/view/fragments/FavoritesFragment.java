@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enesusta.instagramclone.R;
-import com.enesusta.instagramclone.controller.ViewPagerAdapter;
 
 public class FavoritesFragment extends Fragment {
 
@@ -29,13 +28,7 @@ public class FavoritesFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tablayout_id);
         viewPager = view.findViewById(R.id.viewpager_id);
 
-        ViewPagerAdapter viewPageAdapter = new ViewPagerAdapter(getFragmentManager(),true);
 
-        viewPageAdapter.addFragment(new FavoritesFragmentTabYou(), "Following");
-        viewPageAdapter.addFragment(new FavoritesFragmentTabFollowing(), "You");
-
-        viewPager.setAdapter(viewPageAdapter);
-        tabLayout.setupWithViewPager(viewPager);
 
         return view;
     }

@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.enesusta.instagramclone.R;
+import com.enesusta.instagramclone.controller.service.stream.Stream;
+import com.enesusta.instagramclone.controller.service.stream.StreamService;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
-import com.enesusta.instagramclone.controller.firebase.SearchStream;
-import com.enesusta.instagramclone.controller.firebase.StreamProvider;
-import com.enesusta.instagramclone.controller.firebase.StreamService;
+import com.enesusta.instagramclone.controller.service.stream.SearchStream;
 
 /*
 
@@ -58,9 +58,10 @@ public class SearchFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_search,container,false);
 
-        StreamService searchService = new SearchStream();
-        StreamProvider streamProvider = new StreamProvider(searchService,v);
-        streamProvider.flow();
+        StreamService streamService = new SearchStream();
+        Stream stream = new Stream(streamService,v);
+        stream.flow();
+
 
         return v;
     }

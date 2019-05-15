@@ -3,32 +3,23 @@ package com.enesusta.instagramclone.view.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
-import com.enesusta.instagramclone.controller.MyToast;
-import com.enesusta.instagramclone.controller.PersonList;
+import com.enesusta.instagramclone.controller.service.login.Account;
+import com.enesusta.instagramclone.controller.service.login.Login;
 import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.controller.Tool;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.crypt.Crpyt;
-import com.enesusta.instagramclone.controller.firebase.CommentManager;
-import com.enesusta.instagramclone.controller.firebase.CommentService;
-import com.enesusta.instagramclone.controller.firebase.CommentServiceImp;
-import com.enesusta.instagramclone.controller.firebase.LoginService;
-import com.enesusta.instagramclone.controller.firebase.LoginManager;
-import com.enesusta.instagramclone.controller.firebase.SignIn;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
+import com.enesusta.instagramclone.controller.service.login.LoginService;
 import com.enesusta.instagramclone.model.User;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import javax.annotation.Nullable;
 
 /*
 
@@ -56,16 +47,21 @@ SOFTWARE.
 
  */
 
+@Metadata(
+        priority = Priority.MEDIUM,
+        type = Type.VIEW,
+        author = "Enes Usta",
+        lastModified = "15/04/2019"
+)
+
 
 public class LoginActivity extends AppCompatActivity implements Initialize, Tool {
 
-    private static final String TAG = "LoginActivity";
+
+
+    private static final String TAG = "APPBEAR";
     private EditText userName, pass;
     private Button login;
-    private MyToast myToast;
-    private TextView textView;
-    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference = firebaseFirestore.collection("Users");
     private TextView signText;
     private boolean isNewRecord = false;
 
@@ -85,10 +81,9 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
 
         userName = findViewById(R.id.userName);
         pass = findViewById(R.id.userPassword);
-        login = findViewById(R.id.login);
-        myToast = new MyToast(getApplicationContext());
-        textView = findViewById(R.id.text_view_data);
+        login = findViewById(R.id.login_main);
         signText = findViewById(R.id.sign_up_text);
+
     }
 
     @Override
@@ -104,15 +99,16 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
             user.setPersonEmail(toChar(userName));
             user.setPersonPassword(crypedPass);
 
+
             if (isNewRecord)
                 isNewRecord = false;
             else
-                Pointer.putObject("mainUser", user);
+                Pointer.putObject("login", user);
 
-            LoginService signIn = new SignIn(getApplicationContext());
+            LoginService signIn = new Login(getApplicationContext());
+            Account account = new Account(signIn);
+            account.authentication();
 
-            LoginManager signManager = new LoginManager(signIn);
-            signManager.authentication();
 
         });
 

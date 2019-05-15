@@ -1,7 +1,6 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.login;
 
-import android.view.View;
-
+import com.enesusta.instagramclone.controller.annotations.Metadata;
 /*
 
 MIT License
@@ -29,18 +28,17 @@ SOFTWARE.
  */
 
 
-public class StreamProvider {
+@Metadata(author = "Enes Usta")
+public class Account {
 
-    private StreamService streamService;
-    private View v;
+    private LoginService loginService;
 
-    public StreamProvider(StreamService streamService,View v) {
-        this.streamService = streamService;
-        this.v = v;
+    public Account(LoginService loginService) {
+        this.loginService = loginService;
     }
 
-    public void flow() {
-        streamService.flow(v);
+    public void authentication() {
+        loginService.authentication();
     }
 
 }

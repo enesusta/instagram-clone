@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.stream;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,17 +10,11 @@ import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.controller.recycler.SearchAdapter;
 import com.enesusta.instagramclone.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import lombok.NoArgsConstructor;
 
@@ -100,10 +94,5 @@ public class SearchStream implements StreamService {
 
 
                 });
-
-
-
-
-
     }
 }

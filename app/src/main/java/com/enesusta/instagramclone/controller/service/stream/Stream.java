@@ -1,14 +1,13 @@
-package com.enesusta.instagramclone.controller;
+package com.enesusta.instagramclone.controller.service.stream;
+
+import android.view.View;
 
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -30,37 +29,27 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
 @Metadata(
         priority = Priority.HIGH,
         type = Type.CONTROLLER,
         author = "Enes Usta",
-        lastModified = "16/04/2019"
+        lastModified = "14/05/2019"
 )
 
+public class Stream {
 
-public class Pointer {
+    private StreamService streamService;
+    private View view;
 
-    private static Map<String,Object> map = new HashMap<>();
-
-    public static void putObject(String string, Object object) {
-        map.put(string,object);
+    public Stream(StreamService streamService,View view) {
+        this.streamService = streamService;
+        this.view = view;
     }
 
-    public static Object getObject(String str) {
-        return map.get(str);
+    public void flow() {
+        streamService.flow(view);
     }
-
-    public static void removeObject(String string) {
-        map.remove(string);
-    }
-
-    public static Map<String,Object> getMap() {
-        return map;
-    }
-
-
 
 }

@@ -4,25 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Pointer;
-import com.enesusta.instagramclone.controller.ViewPagerAdapter;
+import com.enesusta.instagramclone.controller.service.stream.ProfileStream;
+import com.enesusta.instagramclone.controller.service.stream.Stream;
+import com.enesusta.instagramclone.controller.service.stream.StreamService;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
-import com.enesusta.instagramclone.controller.firebase.ProfileStream;
-import com.enesusta.instagramclone.controller.firebase.StreamProvider;
-import com.enesusta.instagramclone.controller.firebase.StreamService;
 import com.enesusta.instagramclone.model.User;
 import com.enesusta.instagramclone.view.activities.EditProfileActivity;
 
@@ -64,10 +60,6 @@ public class ProfileFragment extends Fragment {
 
     private TextView profileUserText;
     private ImageButton editProfileButton;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
-
     private User user = (User) Pointer.getObject("user");
 
 
@@ -79,9 +71,9 @@ public class ProfileFragment extends Fragment {
         init(view);
         editProfile(view);
 
-        StreamService profileService = new ProfileStream();
-        StreamProvider streamProvider = new StreamProvider(profileService, view);
-        streamProvider.flow();
+        StreamService streamService = new ProfileStream();
+        Stream stream = new Stream(streamService,view);
+        stream.flow();
 
 
         return view;

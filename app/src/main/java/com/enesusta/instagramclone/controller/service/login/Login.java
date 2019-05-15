@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,43 +11,14 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import lombok.NoArgsConstructor;
-
-/*
-
-MIT License
-
-Copyright (c) 2019 Enes Usta
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
- */
-
-@NoArgsConstructor
-public class SignIn implements LoginService {
+public class Login implements LoginService {
 
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CollectionReference userReferences = firebaseFirestore.collection("Users");
     private Context context;
 
 
-    public SignIn(Context context) {
+    public Login(Context context) {
         this.context = context;
     }
 
@@ -55,7 +26,7 @@ public class SignIn implements LoginService {
     @Override
     public void authentication() {
 
-        User user = (User) Pointer.getObject("mainUser");
+        User user = (User) Pointer.getObject("login");
 
         userReferences.whereEqualTo("personEmail", user.getPersonEmail())
                 .get()
@@ -125,5 +96,4 @@ public class SignIn implements LoginService {
         context.startActivity(intent);
 
     }
-
 }

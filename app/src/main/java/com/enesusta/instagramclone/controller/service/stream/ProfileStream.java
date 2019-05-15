@@ -1,4 +1,4 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.stream;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,17 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.NoArgsConstructor;
-
-
 /*
-
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -50,24 +44,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
 @Metadata(
         priority = Priority.HIGH,
         type = Type.CONTROLLER,
         author = "Enes Usta",
-        lastModified = "13/05/2019"
+        lastModified = "10/05/2019"
 )
 
-@NoArgsConstructor
 public class ProfileStream implements StreamService {
 
-
-    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
-    private CollectionReference collectionReference = firebaseFirestore.collection("Users");
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -99,12 +88,12 @@ public class ProfileStream implements StreamService {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Upload temp = snapshot.getValue(Upload.class);
                     uploads.add(temp);
                 }
 
-                mAdapter = new ProfileAdapter(uploads,v.getContext());
+                mAdapter = new ProfileAdapter(uploads, v.getContext());
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -114,17 +103,6 @@ public class ProfileStream implements StreamService {
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

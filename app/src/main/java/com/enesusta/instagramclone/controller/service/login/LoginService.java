@@ -1,6 +1,6 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.login;
 
-import android.view.View;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
 
 /*
 
@@ -28,7 +28,7 @@ SOFTWARE.
 
  */
 
-
-public interface StreamService {
-    void flow(View v);
+@Metadata(author = "Enes Usta")
+public interface LoginService {
+    void authentication();
 }
