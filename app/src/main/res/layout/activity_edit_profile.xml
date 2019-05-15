@@ -14,15 +14,7 @@
         android:background="@drawable/background_border"
         android:padding="5dp">
 
-        <Button
-            android:id="@+id/edit_profile_topbar_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:fontFamily="@font/architects_daughter"
-            android:text="Cancel"
-            android:onClick="functionCancel"
-            />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,30 +26,20 @@
             android:textSize="15dp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/edit_profile_topbar_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dp"
-            android:background="@color/white"
-            android:fontFamily="@font/architects_daughter"
-            android:text="Done" />
-
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/edit_profile_photo_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140sp"
         android:layout_below="@id/edit_profile_topbar"
         android:background="@drawable/background_border">
 
         <ImageView
             android:id="@+id/edit_profile_photo"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="12dp"
@@ -72,6 +54,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="12dp"
             android:background="@color/den"
+            android:onClick="addProfilePhoto"
             android:fontFamily="@font/architects_daughter"
             android:text="Change Profile Photo" />
 

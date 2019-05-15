@@ -58,6 +58,7 @@ public class User implements Serializable {
     private String personBio;
     private String personPhone;
     private String personGender;
+    private String profilePhotoPath;
 
 
 
@@ -100,5 +101,13 @@ public class User implements Serializable {
 
     public void setPersonUserName(String personUserName) {
         this.personUserName = personUserName;
+    }
+
+    public String getProfilePhotoPath() {
+        return profilePhotoPath;
+    }
+
+    public void setProfilePhotoPath(String profilePhotoPath) {
+        this.profilePhotoPath = profilePhotoPath;
     }
 }

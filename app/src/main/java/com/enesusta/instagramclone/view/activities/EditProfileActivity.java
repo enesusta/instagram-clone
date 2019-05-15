@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.Pointer;
+import com.enesusta.instagramclone.controller.service.content.Content;
+import com.enesusta.instagramclone.controller.service.content.ContentService;
+import com.enesusta.instagramclone.controller.service.content.ProfileImageContent;
 import com.enesusta.instagramclone.model.User;
 import com.enesusta.instagramclone.view.fragments.ProfileFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -74,8 +77,6 @@ public class EditProfileActivity extends AppCompatActivity implements Initialize
 
         profileImageView = findViewById(R.id.edit_profile_photo);
         profileChangeTextView = findViewById(R.id.edit_profile_photo_change_button);
-        doneButton = findViewById(R.id.edit_profile_topbar_done);
-        cancelButton = findViewById(R.id.edit_profile_topbar_cancel);
 
     }
 
@@ -87,19 +88,7 @@ public class EditProfileActivity extends AppCompatActivity implements Initialize
             openFileChooser();
         });
 
-        doneButton.setOnClickListener( act -> {
 
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.fragment_container,new ProfileFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
-
-
-        });
-
-        cancelButton.setOnClickListener( act -> {
-        });
 
     }
 
@@ -122,9 +111,14 @@ public class EditProfileActivity extends AppCompatActivity implements Initialize
                 && data != null && data.getData() != null) {
 
             imageURI = data.getData();
-            profileImageView.setImageResource(0);
+
+            profileImageView.setImageDrawable(null);
+
             Picasso.get().load(imageURI).into(profileImageView);
 
+            ContentService contentService = new ProfileImageContent(imageURI,getApplicationContext());
+            Content content = new Content(contentService);
+            content.upload();
         }
     }
 

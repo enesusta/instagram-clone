@@ -16,9 +16,9 @@ import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
-import com.enesusta.instagramclone.controller.firebase.ContentManager;
-import com.enesusta.instagramclone.controller.firebase.ContentService;
-import com.enesusta.instagramclone.controller.firebase.ImageUploader;
+import com.enesusta.instagramclone.controller.service.content.Content;
+import com.enesusta.instagramclone.controller.service.content.ContentService;
+import com.enesusta.instagramclone.controller.service.content.ImageContent;
 import com.squareup.picasso.Picasso;
 
 import static android.app.Activity.RESULT_OK;
@@ -111,7 +111,6 @@ public class ShareFragment extends Fragment implements Initialize {
                 data != null && data.getData() != null) {
 
             imageUri = data.getData();
-
             Picasso.get().load(imageUri).into(imageView);
 
         }
@@ -130,9 +129,10 @@ public class ShareFragment extends Fragment implements Initialize {
 
         buttonUpload.setOnClickListener(v -> {
 
-            ContentService uploadService = new ImageUploader(imageUri, getActivity().getApplicationContext());
-            ContentManager manager = new ContentManager(uploadService);
-            manager.uploadContent();
+            ContentService contentService =
+                    new ImageContent(imageUri,getActivity().getApplicationContext());
+            Content content = new Content(contentService);
+            content.upload();
 
         });
 

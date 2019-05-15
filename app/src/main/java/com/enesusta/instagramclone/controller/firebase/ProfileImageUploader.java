@@ -51,7 +51,7 @@ SOFTWARE.
  */
 
 @NoArgsConstructor
-public class ProfileImageUploader implements ContentService {
+public class ProfileImageUploader {
 
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -88,12 +88,11 @@ public class ProfileImageUploader implements ContentService {
     }
 
 
-    @Override
     public void uploadContent() {
 
         NullGrip<Uri> uriNullGrip = element -> (element != null ? true : false);
 
-        if (uriNullGrip.isNull(uri))
+        if (uriNullGrip.isNull(uri)) {
             storageReference.putFile(uri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -110,22 +109,28 @@ public class ProfileImageUploader implements ContentService {
                         Uri downloadUri = task.getResult();
                         Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show();
 
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("pp",downloadUri);
+                        User temp = user;
+                        temp.setProfilePhotoPath(downloadUri.toString());
 
-                        documentReference.set(map);
+                        Map<String,Object> map = new HashMap<>();
+                        map.put("personEmail",temp.getPersonEmail());
+                        map.put("personFullName",temp.getPersonFullName());
+                        map.put("personPassword",temp.getPersonPassword());
+                        map.put("personUserName",temp.getPersonUserName());
+                        map.put("personProfilePhotoPath",downloadUri);
+
+
+                        documentReference.update(map);
+
+
                     } else {
                         Toast.makeText(context.getApplicationContext(),
                                 "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
             });
-        else {
+
         }
-
-
     }
 
 

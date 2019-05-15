@@ -1,34 +1,37 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.content;
 
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.enesusta.instagramclone.controller.Initialize;
 import com.enesusta.instagramclone.controller.NullGrip;
 import com.enesusta.instagramclone.controller.Pointer;
-import com.enesusta.instagramclone.controller.Tool;
-import com.enesusta.instagramclone.model.Upload;
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.apache.commons.math3.random.RandomData;
-import org.apache.commons.math3.random.RandomDataImpl;
-
+import java.util.HashMap;
 import java.util.Map;
 
-/*
+import lombok.NoArgsConstructor;
 
+
+/*
 MIT License
 
 Copyright (c) 2019 Enes Usta
@@ -50,11 +53,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
  */
 
+@Metadata(
+        priority = Priority.HIGH,
+        type = Type.CONTROLLER,
+        author = "Enes Usta"
+)
 
-public class ImageUploader implements ContentService, Initialize, Tool {
+@NoArgsConstructor
+public class ProfileImageContent implements ContentService {
 
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -64,33 +72,44 @@ public class ImageUploader implements ContentService, Initialize, Tool {
     private DocumentReference documentReference;
     private Uri uri;
     private Context context;
+
     protected User user = (User) Pointer.getObject("user");
 
+    {
+        storageReference = firebaseStorage
+                .getReference("Users/"
+                    .concat(user.getPersonId())
+                    .concat("/photos/")
+                        .concat("main.png"));
 
-    public ImageUploader(Uri uri, Context context) {
+
+        documentReference = firebaseFirestore
+                .collection("Users")
+                .document(user.getPersonId());
+
+
+    }
+
+
+
+
+    public ProfileImageContent(Uri uri, Context context) {
         this.uri = uri;
         this.context = context;
-        initComponents();
     }
 
 
     @Override
-    public void uploadContent() {
+    public void upload() {
 
-        NullGrip<Uri> uriCheck = element -> {
-            return element != null ? true : false;
-        };
+        NullGrip<Uri> uriNullGrip = element -> (element != null ? true : false);
 
-
-        if (uriCheck.isNull(uri)) {
-
-
+        if (uriNullGrip.isNull(uri)) {
             storageReference.putFile(uri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
+                    if (!task.isSuccessful())
                         throw task.getException();
-                    }
                     return storageReference.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -98,95 +117,37 @@ public class ImageUploader implements ContentService, Initialize, Tool {
                 public void onComplete(@NonNull Task<Uri> task) {
 
                     if (task.isSuccessful()) {
+
                         Uri downloadUri = task.getResult();
-                        Toast.makeText(context,
-                                "Upload succesful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show();
 
-                        Upload upload = new Upload("", downloadUri.toString());
-                        upload.setUserName(user.getPersonUserName());
-                        upload.setUserID(user.getPersonId());
-                        upload.setHeartCounter(0);
+                        User temp = user;
+                        temp.setProfilePhotoPath(downloadUri.toString());
 
-//                        databaseReference.push().setValue(upload);
-                        String key = databaseReference.push().getKey();
+                        Map<String,Object> map = new HashMap<>();
+                        map.put("personEmail",temp.getPersonEmail());
+                        map.put("personFullName",temp.getPersonFullName());
+                        map.put("personPassword",temp.getPersonPassword());
+                        map.put("personUserName",temp.getPersonUserName());
+                        map.put("personProfilePhotoPath",downloadUri.toString());
 
-                        upload.setUploadID(key);
-                        databaseReference.child(key).setValue(upload);
+                        Toast.makeText(context.getApplicationContext(),"Basarili!",Toast.LENGTH_SHORT).show();
+
+                        documentReference.update(map);
 
                     } else {
                         Toast.makeText(context.getApplicationContext(),
                                 "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
 
+        } else {
+            Toast.makeText(context.getApplicationContext(),"URI IS NULL!", Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
 
 
-    @Override
-    public void initComponents() {
-
-        storageReference = firebaseStorage.
-                getReference("Users/"
-                        .concat(user.getPersonId())
-                        .concat("/photos/")
-                        .concat(generateRandomHash()));
-
-
-        documentReference = firebaseFirestore
-                .collection("Users")
-                .document(user.getPersonId())
-                .collection("Photos")
-                .document();
-
-        databaseReference = firebaseDatabase
-                .getReference("Users")
-                .child(user.getPersonId())
-                .child("Content");
-
-
-    }
-
-    @Override
-    public void initListeners() {
-
-    }
-
-    private String generateRandomHash() {
-
-        RandomData randomData = new RandomDataImpl();
-        int rand = randomData.nextInt(1,12321312);
-
-        return toString(rand).concat(".png");
-
-    }
-/*
-    public void f() {
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                    Upload upload = postSnapshot.getValue(Upload.class);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }
-    */
 }

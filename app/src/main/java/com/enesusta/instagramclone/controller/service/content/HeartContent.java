@@ -1,11 +1,16 @@
-package com.enesusta.instagramclone.controller.firebase;
+package com.enesusta.instagramclone.controller.service.content;
 
+import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.controller.enums.Priority;
+import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.model.Upload;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import lombok.NoArgsConstructor;
 
 /*
 
@@ -33,14 +38,21 @@ SOFTWARE.
 
  */
 
+@Metadata(
+        priority = Priority.LOW,
+        type = Type.CONTROLLER,
+        author = "Enes Usta",
+        lastModified = "15/05/2019"
+)
 
-public class Counter implements ContentService {
+@NoArgsConstructor
+public class HeartContent implements ContentService {
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private Upload upload;
 
-    public Counter(Upload upload) {
+    public HeartContent(Upload upload) {
         this.upload = upload;
     }
 
@@ -53,22 +65,18 @@ public class Counter implements ContentService {
                         .child("Content")
                         .child(upload.getUploadID());
 
-
     }
 
     @Override
-    public void uploadContent() {
+    public void upload() {
 
         initReference();
         int currentCounter = upload.getHeartCounter();
 
-        Map<String,Object> map = new HashMap<>();
-        map.put("heartCounter",++currentCounter);
+        Map<String, Object> map = new HashMap<>();
+        map.put("heartCounter", ++currentCounter);
 
         databaseReference.updateChildren(map);
 
-
     }
-
-
 }

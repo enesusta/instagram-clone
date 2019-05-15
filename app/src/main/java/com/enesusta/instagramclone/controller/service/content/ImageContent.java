@@ -1,6 +1,30 @@
 package com.enesusta.instagramclone.controller.service.content;
 
+import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import com.enesusta.instagramclone.controller.NullGrip;
+import com.enesusta.instagramclone.controller.Pointer;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
+import com.enesusta.instagramclone.model.Upload;
+import com.enesusta.instagramclone.model.User;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import org.apache.commons.math3.random.RandomData;
+import org.apache.commons.math3.random.RandomDataImpl;
+
+import lombok.NoArgsConstructor;
 
 /*
 MIT License
@@ -25,13 +49,97 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
+
+
 @Metadata(author = "Enes Usta")
+@NoArgsConstructor
 public class ImageContent implements ContentService {
 
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+    private Uri uri;
+    private Context context;
+    protected User user = (User) Pointer.getObject("user");
 
+
+    public ImageContent(Uri uri, Context context) {
+        this.uri = uri;
+        this.context = context;
+        init();
+    }
+
+
+    private void init() {
+
+        storageReference = firebaseStorage.
+                getReference("Users/"
+                        .concat(user.getPersonId())
+                        .concat("/photos/")
+                        .concat(generateRandomHash()));
+
+
+        databaseReference = firebaseDatabase
+                .getReference("Users")
+                .child(user.getPersonId())
+                .child("Content");
+
+    }
+
+
+    private String generateRandomHash() {
+
+        RandomData randomData = new RandomDataImpl();
+        int rand = randomData.nextInt(1, 12321312);
+
+        return String.valueOf(rand).concat(".png");
+
+    }
 
     @Override
     public void upload() {
+
+        NullGrip<Uri> uriCheck = element -> {
+            return element != null ? true : false;
+        };
+
+        if (uriCheck.isNull(uri)) {
+
+
+            storageReference.putFile(uri).continueWithTask(task -> {
+
+                if (!task.isSuccessful())
+                    throw task.getException();
+
+                return storageReference.getDownloadUrl();
+
+            }).addOnCompleteListener(task -> {
+
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+
+                    Toast.makeText(context,
+                            "Upload succesful", Toast.LENGTH_SHORT).show();
+
+                    Upload upload = new Upload("", downloadUri.toString());
+                    upload.setUserName(user.getPersonUserName());
+                    upload.setUserID(user.getPersonId());
+                    upload.setHeartCounter(0);
+
+                    String key = databaseReference.push().getKey();
+
+                    upload.setUploadID(key);
+                    databaseReference.child(key).setValue(upload);
+
+                } else {
+                    Toast.makeText(context.getApplicationContext(),
+                            "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
+
+        }
 
     }
 }

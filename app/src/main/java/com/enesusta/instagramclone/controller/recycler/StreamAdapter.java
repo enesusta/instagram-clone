@@ -15,9 +15,9 @@ import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
-import com.enesusta.instagramclone.controller.firebase.ContentManager;
-import com.enesusta.instagramclone.controller.firebase.ContentService;
-import com.enesusta.instagramclone.controller.firebase.Counter;
+import com.enesusta.instagramclone.controller.service.content.Content;
+import com.enesusta.instagramclone.controller.service.content.ContentService;
+import com.enesusta.instagramclone.controller.service.content.HeartContent;
 import com.enesusta.instagramclone.model.Upload;
 import com.enesusta.instagramclone.view.activities.ProfileIntentActivity;
 import com.squareup.picasso.Picasso;
@@ -103,9 +103,9 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
 
             v.setSelected(!v.isSelected());
 
-            ContentService contentService = new Counter(uploadCurrent);
-            ContentManager contentManager = new ContentManager(contentService);
-            contentManager.uploadContent();
+            ContentService contentService = new HeartContent(uploadCurrent);
+            Content content = new Content(contentService);
+            content.upload();
 
         });
 

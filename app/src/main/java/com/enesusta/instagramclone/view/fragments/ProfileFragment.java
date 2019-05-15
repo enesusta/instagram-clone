@@ -1,6 +1,8 @@
 package com.enesusta.instagramclone.view.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Pointer;
@@ -21,6 +25,15 @@ import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
 import com.enesusta.instagramclone.model.User;
 import com.enesusta.instagramclone.view.activities.EditProfileActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
+
+import java.util.Map;
 
 /*
 
@@ -58,8 +71,12 @@ SOFTWARE.
 
 public class ProfileFragment extends Fragment {
 
+
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private DocumentReference documentReference;
     private TextView profileUserText;
     private ImageButton editProfileButton;
+    private ImageView imageView;
     private User user = (User) Pointer.getObject("user");
 
 
@@ -71,10 +88,48 @@ public class ProfileFragment extends Fragment {
         init(view);
         editProfile(view);
 
-        StreamService streamService = new ProfileStream();
-        Stream stream = new Stream(streamService,view);
-        stream.flow();
+        Context context = getActivity().getApplicationContext();
 
+        documentReference.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        boolean status = documentSnapshot.exists() ? true : false;
+
+                        if (status) {
+
+                            imageView.setBackgroundResource(0);
+                            imageView.setImageDrawable(null);
+
+                            Map<String, Object> data = documentSnapshot.getData();
+                            String path = (String) data.get("personProfilePhotoPath");
+
+                            Toast.makeText(context,path,Toast.LENGTH_LONG).show();
+
+                            Picasso
+                                    .get()
+                                    .load(path)
+                                    .resize(160,120)
+                                    .into(imageView);
+
+                        } else {
+                            Toast.makeText(context, "Document' doesnt exits", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+
+        StreamService streamService = new ProfileStream();
+        Stream stream = new Stream(streamService, view);
+        stream.flow();
 
         return view;
 
@@ -84,8 +139,8 @@ public class ProfileFragment extends Fragment {
 
         profileUserText = view.findViewById(R.id.profile_user_text);
         profileUserText.setText(user.getPersonFullName());
-
-
+        imageView = view.findViewById(R.id.profile_user_settings_main_photo);
+        documentReference = firebaseFirestore.collection("Users").document(user.getPersonId());
     }
 
 
