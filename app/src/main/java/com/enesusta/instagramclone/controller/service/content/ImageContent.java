@@ -24,6 +24,8 @@ import com.google.firebase.storage.UploadTask;
 import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataImpl;
 
+import java.util.Map;
+
 import lombok.NoArgsConstructor;
 
 /*
@@ -62,10 +64,11 @@ public class ImageContent implements ContentService {
     private Uri uri;
     private Context context;
     protected User user = (User) Pointer.getObject("user");
+    private Map<String, Object> map;
 
 
-    public ImageContent(Uri uri, Context context) {
-        this.uri = uri;
+    public ImageContent(Map<String, Object> map, Context context) {
+        this.map = map;
         this.context = context;
         init();
     }
@@ -104,8 +107,9 @@ public class ImageContent implements ContentService {
             return element != null ? true : false;
         };
 
-        if (uriCheck.isNull(uri)) {
+        Uri uri = (Uri) map.get("uri");
 
+        if (uriCheck.isNull(uri)) {
 
             storageReference.putFile(uri).continueWithTask(task -> {
 
@@ -130,6 +134,8 @@ public class ImageContent implements ContentService {
                     String key = databaseReference.push().getKey();
 
                     upload.setUploadID(key);
+                    upload.setUploadText(map.get("text").toString());
+
                     databaseReference.child(key).setValue(upload);
 
                 } else {

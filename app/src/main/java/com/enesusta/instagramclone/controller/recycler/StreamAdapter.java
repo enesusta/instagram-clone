@@ -109,6 +109,9 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
 
         });
 
+        streamAdapterHolder.commentUser.setText(uploadCurrent.getUserName());
+        streamAdapterHolder.commentText.setText(uploadCurrent.getUploadText());
+
 
     }
 
@@ -123,6 +126,8 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
         TextView textViewName;
         TextView heartCounter;
         TextView commentCounter;
+        TextView commentUser;
+        TextView commentText;
 
         ImageView imageView;
         ImageButton heartButton;
@@ -143,6 +148,8 @@ public class StreamAdapter extends RecyclerView.Adapter<StreamAdapter.StreamAdap
             commentCounter = itemView.findViewById(R.id.main_stream_content_comment_counter);
             heartButton = itemView.findViewById(R.id.main_stream_content_heart);
             commentButton = itemView.findViewById(R.id.main_stream_content_comment);
+            commentUser = itemView.findViewById(R.id.main_stream_comment_user_name);
+            commentText = itemView.findViewById(R.id.main_stream_comment_text);
 
         }
 

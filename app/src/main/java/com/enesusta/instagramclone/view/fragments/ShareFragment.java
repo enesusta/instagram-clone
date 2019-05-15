@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.enesusta.instagramclone.R;
 import com.enesusta.instagramclone.controller.Initialize;
+import com.enesusta.instagramclone.controller.Tool;
 import com.enesusta.instagramclone.controller.annotations.Metadata;
 import com.enesusta.instagramclone.controller.enums.Priority;
 import com.enesusta.instagramclone.controller.enums.Type;
@@ -20,6 +22,9 @@ import com.enesusta.instagramclone.controller.service.content.Content;
 import com.enesusta.instagramclone.controller.service.content.ContentService;
 import com.enesusta.instagramclone.controller.service.content.ImageContent;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -57,13 +62,15 @@ SOFTWARE.
 )
 
 
-public class ShareFragment extends Fragment implements Initialize {
+public class ShareFragment extends Fragment implements Initialize, Tool {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button buttonChoseeImage;
     private Button buttonUpload;
     private ImageView imageView;
+    private EditText editText;
     private Uri imageUri;
+    private Map<String,Object> map;
 
 
     @Override
@@ -86,9 +93,11 @@ public class ShareFragment extends Fragment implements Initialize {
 
     private void init(View v) {
 
+        map = new HashMap<>();
         buttonChoseeImage = v.findViewById(R.id.button_choose_image);
         buttonUpload = v.findViewById(R.id.button_upload);
         imageView = v.findViewById(R.id.image_view);
+        editText = v.findViewById(R.id.edit_text_file_name);
 
     }
 
@@ -113,6 +122,9 @@ public class ShareFragment extends Fragment implements Initialize {
             imageUri = data.getData();
             Picasso.get().load(imageUri).into(imageView);
 
+            map.put("uri",imageUri);
+            map.put("text",toChar(editText));
+
         }
     }
 
@@ -130,7 +142,7 @@ public class ShareFragment extends Fragment implements Initialize {
         buttonUpload.setOnClickListener(v -> {
 
             ContentService contentService =
-                    new ImageContent(imageUri,getActivity().getApplicationContext());
+                    new ImageContent(map,getActivity().getApplicationContext());
             Content content = new Content(contentService);
             content.upload();
 

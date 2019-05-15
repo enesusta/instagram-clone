@@ -105,8 +105,6 @@ public class ProfileFragment extends Fragment {
                             Map<String, Object> data = documentSnapshot.getData();
                             String path = (String) data.get("personProfilePhotoPath");
 
-                            Toast.makeText(context,path,Toast.LENGTH_LONG).show();
-
                             Picasso
                                     .get()
                                     .load(path)

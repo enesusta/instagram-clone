@@ -53,7 +53,9 @@ public class Upload implements Serializable {
     private String userPhoto;
     private String userID;
     private String uploadID;
+    private String uploadText;
     private int heartCounter;
+
 
     public Upload(String uploadName, String uploadImageUrl) {
 
