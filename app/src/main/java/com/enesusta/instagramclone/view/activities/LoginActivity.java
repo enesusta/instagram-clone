@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements Initialize, Tool
             if (isNewRecord)
                 isNewRecord = false;
             else
-                Pointer.putObject("login", user);
+                Pointer.putObject("register", user);
 
             LoginService signIn = new Login(getApplicationContext());
             Account account = new Account(signIn);

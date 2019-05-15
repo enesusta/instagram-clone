@@ -26,7 +26,7 @@ public class Login implements LoginService {
     @Override
     public void authentication() {
 
-        User user = (User) Pointer.getObject("login");
+        User user = (User) Pointer.getObject("register");
 
         userReferences.whereEqualTo("personEmail", user.getPersonEmail())
                 .get()
